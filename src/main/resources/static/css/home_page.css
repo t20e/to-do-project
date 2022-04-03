@@ -1,0 +1,423 @@
+@charset "UTF-8";
+:root{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    --mainText:Verdana, Geneva, Tahoma, sans-serif;
+    --primaryColor: #3aafa9;
+    --secondaryColor: #2c7b79;
+    --thirdColor:#17252a ;
+    --bgkColor: #dff1f0;
+    --boxShadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    --borderBoxShaow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* dark theme */
+    /* --darkPrimaryCoor: #45a29e;
+    --darkSecondaryCoor: #8ad2d8;
+    --darkThirdCoor: #c5c6c7;
+    --darkBgkColor: #0e0e11; */
+}
+h3, h2{
+    font-family: var(--mainText);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+/* ******* */
+.btn1div{
+    position: relative;
+    text-align: center;
+    margin-top: 30px;
+}
+.btn1div > input[type="checkbox"]{
+    cursor: pointer;
+    position: relative;
+    width: 80px ;
+    height: 40px;
+    /* this is changing the size of the checkbox */
+    appearance: none;
+    -webkit-appearance: none;
+    /* need to set appearance:  to none to be able to change background color ; */
+    background-color: #3aafa9;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    transition: .0s;
+    /* if u change transtiotion from .0s to a number it will make a form that changes hoe the input is added */
+}
+.btn1div > input:checked[type="checkbox"]{
+    background-color:#45a29e;
+}
+.btn1div > input[type="checkbox"]:before{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    top: 5px;
+    left: 10px;
+    background-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0,0, .2);
+    transition: .5s;
+}
+.btn1div > input:checked[type="checkbox"]::before{
+    background-color: #8ad2d8;
+}
+.btn1div > input:checked[type="checkbox"]:before{
+    left: 40px;
+}
+
+/* ****** end */
+
+#mainContainer{
+    margin:0px auto;
+    width: 950px;
+    height: auto;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    margin-top: -4px;
+    opacity: 1;
+}
+.columnContainer{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.columnLeft{
+    height: 900px;
+    /* change height to auto */
+    width: 60%;
+    display: inline-block;
+}
+
+.row1{
+    height: auto;
+    /* change height to auto */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+/* calendar */
+.calenderContainer{
+    /* might not be needed top */
+    width: 95%;
+    height: 300px;
+        /* change height to auto */
+    border: 2px solid var(--secondaryCoor);
+    border-radius: 20px;
+    box-shadow: var(--boxShadow) ;
+}
+.row2{
+    margin-top: 15px;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.selectedCategoryContainer{
+    /* margin-top: 10px;
+    /* might not be needed top */
+    width: 95%;
+    height: auto;
+        /* change height to auto */
+    border: 2px solid var(--secondaryCoor);
+    border-radius: 20px;
+    box-shadow: var(--boxShadow) ; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.selectedCategoryName{
+    margin-top: 15px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tasksList{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* end row 2 */
+/* 
+380
+570 */
+/* end column left  */
+.columnRight{
+    height: auto;
+    /* change height to auto */
+    width: 40%;
+    display: inline-block;
+}
+.dashboard{
+    /* might not be needed top */
+    /* width: 95%;
+    height: auto; */
+        /* change height to auto */
+    /* border: 4px solid var(--secondaryColor);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: var(--boxShadow) ; */
+        /* margin-top: 10px;
+    /* might not be needed top */
+    width: 95%;
+    height: auto;
+        /* change height to auto */
+    border: 2px solid var(--secondaryCoor);
+    border-radius: 20px;
+    box-shadow: var(--boxShadow) ; 
+    display: flex;
+    flex-direction: column;
+
+}
+.rowDashNav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 25px;
+}
+.rowDashNav > img{
+    height: 125px;
+    width: 100px;
+}
+.rowRepeatContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.rowRepeat{
+    height: 25px;
+    width: 100%;
+    text-align: center;
+    border-bottom:2px solid var(--borderBoxShaow) ;
+}
+.rowRepeatContainer :nth-last-child(2){
+    margin-bottom: 25px;
+}
+.rowRepeat :hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.rowRepeat > p{
+    font-size: 1.1rem;
+}
+.addCategory{
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+}
+.addCategory > img{
+    height: 25px;
+    width: 30px;
+    cursor: pointer;
+}
+
+/* //add task pop up  */
+#addTaskPlusSign{
+    height: 25px;
+    width: 30px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+#radioHolder{
+    margin-top: 35px;
+}
+.radioContainer{
+    min-width: 250px;
+    max-width: 250px;
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgb(0, 0,0, .2);
+    background: white;
+}
+.dueRadio_input{
+    display: none;
+    background-color: var(--primaryColor);
+}
+.dueRadio_label{
+    padding: 8px;
+    color: var(--primaryColor);
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.dueRadio_label:not(:last-child){
+    border-right: 1px solid var(--primaryColor);
+}
+.dueRadio_input:checked + .dueRadio_label{
+    background-color: var(--primaryColor);
+    color: white;
+}
+
+/* form styles */
+form{
+    display: flex;
+    flex-direction: column;
+}
+.input{
+    border: none;
+    margin-top: 20px;
+    width: 350px;
+    height: 50px;
+    padding-left: 15px;
+    background-color: rgb(0, 0, 0,.0);
+    border-bottom: 2px solid black;
+    outline: none;
+}
+#btn{
+    margin-top: 55px;
+    background-color: #2c7b79;
+    padding: 5px;
+    width: 120px;
+    height: 40px;
+    border-radius: 50px;
+    align-self: center;
+    color: white;
+}
+
+a{
+    color: #2c7b79;
+    text-decoration: none;
+}
+p{
+    color: #2c7b79;
+}
+footer{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+/* add category pop up  */
+#addCategoryPopup{
+    width: 100%;
+    height: 85%;
+    position: absolute;
+    top: 15%;
+    display: none; 
+     /* change to display:  none; */
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+#addCategoryPopup.show{
+    display: flex;
+    pointer-events: auto;
+    opacity: 1;    
+}
+
+.popUpContent{
+    border:2px solid var(--primaryColor);
+    box-shadow: var(--boxShadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 270px;
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+/* add task pop up  */
+/* add category pop up  */
+#addTaskPopup{
+    width: 100%;
+    height: 85%;
+    position: absolute;
+    top: 15%;
+    display: flex; 
+     /* change to display:  none; */
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+#addTaskPopup.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+.taskPopUpContent{
+    border:2px solid var(--primaryColor);
+    box-shadow: var(--boxShadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+.taskParagraph{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-left: 10px;
+}
+/* check box customize */
+.checkBoxContainer{
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.repeatCheckbox{
+    margin: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.checkBoxLabel{
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+.checkmark {
+    margin-left: 15px;
+}
+.checkBoxLabel .checkmark{
+    border-radius: 10px;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid black;
+    display: block;
+    background: black  url(/images/white_checkMark_img.svg) center/1250% no-repeat ;
+    background-color: whitesmoke;
+    transition: background-size .5s ease ;
+    background-size: 0%;
+}
+.checkBoxLabel > input{
+    display: none;
+}
+.checkBoxLabel > input:checked + .checkmark{
+    background-size: 100%;
+    background-color: var(--primaryColor);
+    transition: background-size .5s ease cubic-bezier(0.25, 0.1, 1, 5.68);
+}
+/* checkbox customize end  */
