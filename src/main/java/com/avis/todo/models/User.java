@@ -3,6 +3,7 @@ package com.avis.todo.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -57,10 +59,11 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OrderBy("priority DESC")
 	private List<DbCategory> categories;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user")
 	private List<Task> tasks;
 	
 	public User() {}

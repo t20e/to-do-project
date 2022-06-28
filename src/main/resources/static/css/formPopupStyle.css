@@ -1,0 +1,182 @@
+@import "home_page.css";
+.addCategoryPlusImgDiv{
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+}
+#addCategoryPlusImg{
+    height: 25px;
+    width: 30px;
+    cursor: pointer;
+    pointer-events: all;
+    opacity: 1;
+}
+#addCategoryPlusImg.disallow{
+    height: 25px;
+    width: 30px;
+    cursor: none;
+    pointer-events: none;
+    opacity: .4;
+}
+/* //add task pop up  */
+#addTaskPlusSign{
+    height: 25px;
+    width: 30px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+/* add category pop up  */
+#addCategoryPopup{
+    width: 100%;
+    height: 85%;
+    position: absolute;
+    top: 15%;
+    display: none; 
+     /* change to display:  none; */
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+#addCategoryPopup.show{
+    display: flex;
+    pointer-events: auto;
+    opacity: 1;    
+}
+
+.popUpContent{
+    box-shadow: var(--boxShadowPopUp);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 270px;
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+/* add task pop up  */
+/* add category pop up  */
+#addTaskPopup{
+    width: 100%;
+    height: 85%;
+    position: absolute;
+    top: 15%;
+    display: flex; 
+     /* change to display:  none; */
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+#addTaskPopup.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+.taskPopUpContent{
+    box-shadow: var(--boxShadowPopUp);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+.taskParagraph{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-left: 10px;
+}
+/* check box customize */
+.checkBoxContainer{
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.repeatCheckbox{
+    margin: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.checkBoxLabel{
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+.checkmark {
+    margin-left: 15px;
+}
+.checkBoxLabel .checkmark{
+    border-radius: 10px;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid black;
+    display: block;
+    background: black  url(/images/white_checkMark_img.svg) center/1250% no-repeat ;
+    background-color: whitesmoke;
+    transition: background-size .5s ease ;
+    background-size: 0%;
+}
+.checkBoxLabel > input{
+    display: none;
+}
+.checkBoxLabel > input:checked + .checkmark{
+    background-size: 100%;
+    background-color: var(--primaryColor);
+    transition: background-size .5s ease cubic-bezier(0.25, 0.1, 1, 5.68);
+}
+
+
+/* radio styles  */
+#radioHolder{
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.radioContainer{
+    min-width: 250px;
+    max-width: 250px;
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgb(0, 0,0, .2);
+    background: white;
+}
+.dueRadio_label{
+    padding: 8px;
+    color: var(--primaryColor);
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.dueRadio_label:not(:last-child){
+    border-right: 1px solid var(--primaryColor);
+}
+.dueRadio_input{
+    display: none;
+    background-color: var(--primaryColor);
+}
+.dueRadio_input:checked + .dueRadio_label{
+    background-color: var(--primaryColor);
+    color: white;
+}

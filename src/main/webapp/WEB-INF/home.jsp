@@ -1,187 +1,176 @@
-<%@page import="javax.swing.text.View"%>
-<%@page import="com.avis.todo.models.DbCategory"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-   <!-- c:out ; c:forEach ; c:if -->
- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
-   <!-- Formatting (like dates) -->
- <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-   <!-- form:form -->
- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
-   <!-- for rendering errors on PUT routes -->
- <%@ page isErrorPage="true" %>  
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="/css/home_page.css">
-<meta charset="UTF-8">
-<title>to do</title>
-<script type="text/javascript" src="<c:url value='/js/themeController.js' />"></script>
-</head>
-<body>
-  <div id="mainContainer">
-    <div class="btn1div">
-      <!-- button one -->
-      <input type="checkbox" id="themeToggle" name="btnToggle">
-    </div>
-    <!-- **** -->
-    <div class="columnContainer">
-      <div class="columnLeft">
-        <div class="row1">
-          <div class="calenderContainer"></div>
-          <!-- calender -->
-        </div>
-        <div class="row2">
-          <!-- selected category  -->
-          <div class="selectedCategoryContainer">
+<%@page import="javax.swing.text.View" %>
+  <%@page import="com.avis.todo.models.DbCategory" %>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+      <!-- c:out ; c:forEach ; c:if -->
+      <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <!-- Formatting (like dates) -->
+        <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+          <!-- form:form -->
+          <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+            <!-- for rendering errors on PUT routes -->
+            <%@ page isErrorPage="true" %>
+              <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+                <!DOCTYPE html>
+                <html>
 
+                <head>
+                  <meta charset="UTF-8">
+                  <title>To Do App</title>
+                  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                  <!-- <script>
+                    window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')
+                      $SCRIPT_ROOT = {{ request.script_root | tojson }};
+                      </script> -->
+                  <script type="text/javascript" src="<c:url value='/js/themeController.js' />"></script>
+                  <link rel="stylesheet" href="/css/home_page.css">
+                  <link rel="stylesheet" href="/css/formPopupStyle.css">
+                  <script type="text/javascript" src="<c:url value='/js//formSubmissionHandler.js' />"></script>
+                </head>
 
-<!-- first if  -->
-      <c:if test="${not empty categoryToShow}">
-          <div class="selectedCategoryName">
-            <div>
-              <h2>${ categoryToShow.name } </h2>
-            </div>
-            <div>
-              <img src="/images/plus_sign.svg" alt="add task" id="addTaskPlusSign">
-            </div>
-          </div>
-          <div class="tasksList">
-            <c:forEach items='${ categoryToShow.tasks }' var='task'>
-              <div class="checkBoxContainer">
-                <div class="repeatCheckbox">
-                      <label class="checkBoxLabel">
-                        <input type="checkbox" path="${task.id}" id="${task.name}" >
-                        <span class="checkmark"></span>
-                      </label>
-                      <p>${task.name}</p>
-                </div>
-              </div>
-            </c:forEach>
-          </div>
-      </c:if>
-
-<!-- second if  -->
-      <c:if test="${empty categoryToShow}">
-            <div class="selectedCategoryName">
-              <H2>All Tasks</H2>
-            </div>
-            <div class="tasksList">
-              <c:forEach items='${ user.tasks }' var='task'>
-                <div class="checkBoxContainer">
-                  <div class="repeatCheckbox">
-                        <label class="checkBoxLabel">
-                          <input type="checkbox" path="${task.id}" id="${task.name}" >
-                          <span class="checkmark"></span>
-                        </label>
-                        <p class="taskParagraph">${task.name}</p>
+                <body>
+                  <div id="mainContainer">
+                    <div class="btn1div">
+                      <!-- button one -->
+                      <input type="checkbox" id="themeToggle" name="btnToggle">
+                    </div>
+                    <div class="columnContainer">
+                      <div class="columnLeft">
+                        <div class="row1">
+                          <div class="calenderContainer"></div>
+                          <!-- calender -->
+                        </div>
+                        <div class="row2">
+                          <!-- selected category  -->
+                          <div class="selectedCategoryContainer">
+                            <div class="selectedCategoryName">
+                              <H2>All Tasks</H2>
+                            </div>
+                            <div class="tasksList">
+                              <c:forEach items='${ user.tasks }' var='task'>
+                                <div class="checkBoxContainer">
+                                  <div class="repeatCheckbox">
+                                    <label class="checkBoxLabel">
+                                      <input type="checkbox" path="${task.id}" id="${task.name}">
+                                      <span class="checkmark"></span>
+                                    </label>
+                                    <p class="taskParagraph">${task.name}</p>
+                                  </div>
+                                </div>
+                              </c:forEach>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="columnRight">
+                        <div class="dashboard">
+                          <!-- shows user info and all categories in order by priotity {always show all task as main}-->
+                          <div class="rowDashNav">
+                            <img src="/images/logo.svg" alt="">
+                            <h3> ${ user.firstName } </h3>
+                            <div class="userActions">
+                              <a href="/logout">logout</a>
+                            </div>
+                          </div>
+                          <div class="rowRepeatContainer">
+                            <!-- this will call jquery to get all tasks for user in all tasks table -->
+                            <button class="retrieveDataBtn" onclick="getAllTasks()">
+                              <div class="rowRepeat">
+                                <p>All Tasks</p>
+                              </div>
+                            </button>
+                            <c:forEach items='${ user.categories }' var='category'>
+                              <button class="retrieveDataBtn" onclick="getTasksPerCat('${category.id}')">
+                                <div class="rowRepeat">
+                                  <p>${category.name}</p>
+                                </div>
+                                <script>
+                                  allCategoriesInOrder.push({"name" : `${category.name}`, "id" : `${category.id}` ,  "priority" : `${category.priority}`})
+                                </script>
+                              </button>
+                            </c:forEach>
+                          </div>
+                          <div class="addCategoryPlusImgDiv">
+                            <img src="/images/plus_sign.svg" id="addCategoryPlusImg" alt="plus sign">
+                            <!--  if category contains more then 15 categories then display a pull down that will show all categories-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </c:forEach>
-            </div>
-      </c:if>
+                  <footer>
+                    <p> &copy to-do-app </p>
+                  </footer>
+                  <!-- pop ups below -->
+                  <div id="addCategoryPopup">
+                    <div class="popUpContent">
+                      <!-- content -->
+                      <h2>Create Category</h2>
+                      <form:form id="categoryForm" modelAttribute="categoryForm">
+                        <form:input type="hidden" name="user" path="user" value=" ${user.id} " />
+                        <div>
+                          <form:input class="input" name="name" path="name" placeHolder="name" />
+                        </div>
+                        <div id="radioHolder">
+                          <div class="radioContainer">
+                            <form:radiobutton class="dueRadio_input" path="priority" name="priority" value="1"
+                              id="one" />
+                            <label class="dueRadio_label" for="one">low</label>
+                            <form:radiobutton class="dueRadio_input" path="priority" name="priority" value="2"
+                              id="two" />
+                            <label class="dueRadio_label" for="two">normal</label>
+                            <form:radiobutton class="dueRadio_input" path="priority" name="priority" value="3"
+                              id="three" />
+                            <label class="dueRadio_label" for="three">High</label>
+                          </div>
+                        </div>
+                        <input id="btn" type="submit" value="Add" />
+                      </form:form>
+                    </div>
+                  </div>
+                  <div id="addTaskPopup">
+                    <div class="taskPopUpContent">
+                      <h2>Add task</h2>
+                      <form action="/api/task/add" method="post">
+                        <input type="hidden" path="category" value=" ${categoryToShow.id} " />
+                        <input type="hidden" path="user" value=" ${user.id} " />
+                        <div>
+                          <input type="text" class="input" placeHolder="name" />
+                        </div>
+                        <div id="radioHolder">
+                          <h4 class="priotiyCategorytxt">priotity:</h4>
+                          <!-- <div class="radioContainer">
+                            <input type="radio" class="dueRadio_input" path="priority" name="dueRadio" value="1"
+                              id="1" />
+                            <label class="dueRadio_label" for="1">due now</label>
+                            <input type="radio" class="dueRadio_input" path="priority" name="dueRadio" value="2"
+                              id="2" />
+                            <label class="dueRadio_label" for="2">due soon</label>
+                            <input type="radio" class="dueRadio_input" path="priority" name="dueRadio" value="3"
+                              id="3" />
+                            <label class="dueRadio_label" for="3">due later</label>
+                          </div> -->
+                        </div>
+                        <div>
+                          <input type="date" class="input" path="due" placeHolder="due" />
+                        </div>
+                        <div>
+                          <input class="input" path="location" placeHolder="location" />
+                        </div>
+                        <div>
+                          <input class="input" path="notes" placeHolder="notes" />
+                        </div>
+                        <input id="btn" type="submit" value="Add" />
+                      </form>
+                    </div>
+                  </div>
+                  <!-- let user know progress on adding items -->
+                  <div class="loader">
+                    <div></div>
+                    <p class="loaderP"></p>
+                  </div>
+                  <script type="text/javascript" src="<c:url value='/js//popUpController.js' />"></script>
+                  <script type="text/javascript" src="<c:url value='/js//validateForms.js' />"></script>
+                  <script type="text/javascript" src="<c:url value='/js//retrieveData.js' />"></script>
+                </body>
 
-
-
-
-      </div>
-        </div>
-      </div>
-      <div class="columnRight">
-        <div class="dashboard">
-          <!-- shows user info and all categories in order by priotity -->
-            <div class="rowDashNav">
-              <img src="/images/logo.svg" alt="">
-              <h3> ${ user.firstName } </h3>
-            </div>
-            <div class="rowRepeatContainer">
-                <a class="rowRepeat" href="/category/alltasks/${loggedInUserId}">All Tasks</a>
-                <c:forEach items='${ user.categories }' var='category'>
-                  <div class="rowRepeat"><a href="/category/${category.id}">${category.name}</a></div>
-                
-                </c:forEach>
-              
-              <div class="addCategory">
-                <img src="/images/plus_sign.svg" id="addCategory" alt="plus sign">
-                <!--  if category contains more then 15 categories then display a pull down that will show all categories-->
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div id="addCategoryPopup">
-    <div class="popUpContent">
-      <!-- content -->
-      <h2>Add Category</h2>
-
-        <form:form action="/category/add" method="post" modelAttribute="categoryForm">
-          <form:input type="hidden" path="user" value=" ${loggedInUserId} "/>
-          <div>
-            <form:errors path="name" />
-            <form:input class="input" autofocus="autofocus" path="name" placeHolder="name" />
-          </div>
-          <div>
-            <form:errors path="priority" />
-            <form:input class="input" path="priority" placeHolder="priority"/>
-          </div>
-          <input id="btn" type="submit" value="Add" />
-        </form:form>    
-    </div>
-  </div>
-  <!-- add task pop up **************-->
-  <div id="addTaskPopup">
-    <div class="taskPopUpContent">
-      <!-- content -->
-      <h2>Add task</h2>
-      <form:form action="/task/add" method="post" modelAttribute="taskForm">
-        <form:input type="hidden" path="category" value=" ${categoryToShow.id} "/>
-        <form:input type="hidden" path="user" value=" ${user.id} "/>
-        
-        <div>
-          <form:errors path="name" />
-          <form:input class="input"  autofocus="autofocus" path="name" placeHolder="name" />
-        </div>
-        <!-- //radio for input priority -->
-        <div id="radioHolder">
-            <div class="radioContainer">
-              <form:errors path="priority" />
-
-              <form:radiobutton class="dueRadio_input" path="priority" name="dueRadio" value="1" id="1"/>
-              <label class="dueRadio_label" for="1">due now</label>
-              <form:radiobutton class="dueRadio_input" path="priority" name="dueRadio" value="2" id="2"/>
-              <label class="dueRadio_label" for="2">due soon</label>
-              <form:radiobutton class="dueRadio_input" path="priority" name="dueRadio" value="3" id="3"/>
-              <label class="dueRadio_label" for="3">due later</label>
-
-
-            </div>
-          </div>
-        <div>
-          <form:errors path="due" />
-          <form:input type="date" class="input" path="due" placeHolder="due"/>
-        </div>
-
-        <div>
-          <form:errors path="location" />
-          <form:input class="input" path="location" placeHolder="location"/>
-        </div>
-        <div>
-          <form:errors path="notes" />
-          <form:input class="input" path="notes" placeHolder="notes"/>
-        </div>
-        <input id="btn" type="submit" value="Add" />
-      </form:form>   
-  
-    </div>
-  </div>
-  <footer>
-    <p> &copy to-do-app </p>
-  </footer>
-  <script type="text/javascript" src="<c:url value='/js//popUpController.js' />"></script>
-</body>
-</html>
+                </html>

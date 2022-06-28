@@ -1,1 +1,1 @@
-currently make change this app to make it use react on the front end. 
+currently making changes to the app so it can be more user frienldy. utilizing jquery

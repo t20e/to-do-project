@@ -1,40 +1,63 @@
 package com.avis.todo.controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import com.avis.todo.models.DbCategory;
 import com.avis.todo.models.Task;
+import com.avis.todo.models.User;
 import com.avis.todo.services.ServiceCategory;
+import com.avis.todo.services.ServiceUser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 
-@Controller
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static java.lang.System.*;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("/api")
 public class CategoryController {
 	@Autowired
 	private ServiceCategory categoryService;
-	
-	@PostMapping("/category/add")
-	public String addCategory(@Valid @ModelAttribute("categoryForm")DbCategory category, BindingResult result, Model view ) {
-		if(result.hasErrors()) {
-			view.addAttribute("taskForm", new Task());
-			return "home.jsp";
+	@Autowired
+	private ServiceUser servUser;
+
+	@PostMapping(value = "/category/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity addCategory(@Valid @RequestBody DbCategory category, BindingResult result, HttpSession session) {
+		if (result.hasErrors()) {
+			HashMap<String, String> validations = new HashMap<>(){{
+				put("validations", "failed");
+			}};
+			return new ResponseEntity<>(validations, HttpStatus.OK);
 		}
-		DbCategory addCategory = this.categoryService.createCategory(category);
-		return "redirect:/";
+		User user = this.servUser.getOneUser( (Long) session.getAttribute("loggedInUserId"));
+		out.println(user);
+		category.setUser(user);
+		category = categoryService.createCategory(category);
+		HashMap<String, Object> validations = new HashMap<>(){{
+			put("validations", "passed");
+		}};
+		validations.put("category_id", category.getId());
+		validations.put("category_priority", category.getPriority());
+		return new ResponseEntity<>(validations, HttpStatus.OK);
 	}
-	@GetMapping("category/{id}")
-	public String showAlltasksForOneCategory(@PathVariable("id") DbCategory categoryid, RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("categoryId", categoryid);
-		return "redirect:/";
+	@GetMapping("/category/{id}")
+	public List getAllTasksPerCat(@PathVariable("id") Long id){
+		DbCategory category = categoryService.getOneCategory(id);
+		List allTasksForCat = category.getTasks();
+		out.print(allTasksForCat);
+		return allTasksForCat;
 	}
-
-
 }

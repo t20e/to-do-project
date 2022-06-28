@@ -42,7 +42,7 @@
     </div>
     <div class="row3">
       <!-- link to register  -->
-      <a href="/register">sign up</a>
+      <a href="/reg">sign up</a>
     </div>
   </div>
   <footer>

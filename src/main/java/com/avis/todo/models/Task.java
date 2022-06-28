@@ -43,6 +43,8 @@ public class Task {
 	
 	@Column(nullable = true, length = 5000)
 	private String notes;
+	@Column(nullable = true)
+	private int complete;
 	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -126,6 +128,14 @@ public class Task {
 		this.notes = notes;
 	}
 
+	public int getComplete() {
+		return complete;
+	}
+
+	public void setComplete(int complete) {
+		this.complete = complete;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -157,9 +167,5 @@ public class Task {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	
-
-	
 	
 }

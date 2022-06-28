@@ -15,22 +15,37 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name = "categories")
 public class DbCategory {
+	
+	// String onlyLetters =  "^[A-Za-z]*$";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotEmpty(message = "please enter a name")
+	@NotEmpty(message = "enter a category name")
+	@Pattern(regexp=  "^[A-Za-z]*$" , message = "name must be only letters")
+	@Size(min = 2, message = "category name must be more than 2 characters")
 	private String name;
 	
-	@Column(nullable = true, length = 64)
-	private String priority;
+	@NotNull(message = "please select a priority")
+	@Min(0)
+	@Max(3)
+	// @NotNull)
+	private int priority;
 	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -42,13 +57,12 @@ public class DbCategory {
 	private List<Task> tasks;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
 	
 	public DbCategory() {}
 	
-	public DbCategory(String name, String priority) {
+	public DbCategory(String name, int priority) {
 		this.name = name;
 		this.priority = priority;
 	}
@@ -78,11 +92,11 @@ public class DbCategory {
 		this.name = name;
 	}
 
-	public String getPriority() {
+	public int getPriority() {
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	public void setPriority(int priority) {
 		this.priority = priority;
 	}
 
@@ -117,6 +131,4 @@ public class DbCategory {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
 }

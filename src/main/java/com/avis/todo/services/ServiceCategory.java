@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.avis.todo.models.DbCategory;
-import com.avis.todo.models.Task;
 import com.avis.todo.repositories.RepoCategory;
 
 @Service

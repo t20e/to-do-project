@@ -25,27 +25,16 @@ public class MainController {
 	private ServiceCategory categoryService;
 	
 	@GetMapping("/")
-	public String home(Model view, HttpSession session, @ModelAttribute("categoryId")DbCategory categoryId, @ModelAttribute("userId")User userIdToShowAllTasksWhenSelected ) {
+	public String home(Model view, HttpSession session ) {
 		Long idInSession = (Long) session.getAttribute("loggedInUserId");
 		if( idInSession == null ) {
 			return "redirect:/login";
 		}
 		view.addAttribute("user", this.userService.getOneUser(idInSession));
 		view.addAttribute("categoryForm", new DbCategory());
-		if(categoryId != null) {
-//			if one category is selected
-			System.out.println("select category is not null");
-			view.addAttribute("categoryToShow", this.categoryService.getOneCategory(categoryId.getId()) );
-		}else if (userIdToShowAllTasksWhenSelected != null) {
-//			if show all tasks is selected 
-			System.out.println(" all tasks is not null");
-			view.addAttribute("categoryToShow", this.taskService.getAllTasks());
-		}
-		view.addAttribute("taskForm", new Task());
-		view.addAttribute("allTasks", this.taskService.getAllTasks());
-		System.out.println("current category to show " + categoryId.getId());
-		System.out.println(idInSession);
-		
+//		view.addAttribute("allTasks", this.taskService.getAllTasks());
+		//get all tasks
+//		amd get all categories
 		return "home.jsp";
 	}
 	

@@ -14,14 +14,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.avis.todo.models.LoginUser;
 import com.avis.todo.models.User;
 import com.avis.todo.services.ServiceUser;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class UserController {
 
+	
 	@Autowired
 	private ServiceUser servUser;
-	
-	//login
+
+	@RequestMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/reg";
+	}
 	@GetMapping("/login")
 	public String login(Model view) {
 		view.addAttribute("loginUser", new LoginUser());
@@ -38,7 +44,7 @@ public class UserController {
 	}
 	
 	//register
-	@GetMapping("/register")
+	@GetMapping("/reg")
 	public String register(Model view) {
 		view.addAttribute("newUser", new User());
 		return "register.jsp";
