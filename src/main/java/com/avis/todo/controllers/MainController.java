@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.avis.todo.models.DbCategory;
 import com.avis.todo.models.Task;
-import com.avis.todo.models.User;
 import com.avis.todo.services.ServiceCategory;
 import com.avis.todo.services.ServiceTask;
 import com.avis.todo.services.ServiceUser;
@@ -32,9 +30,7 @@ public class MainController {
 		}
 		view.addAttribute("user", this.userService.getOneUser(idInSession));
 		view.addAttribute("categoryForm", new DbCategory());
-//		view.addAttribute("allTasks", this.taskService.getAllTasks());
-		//get all tasks
-//		amd get all categories
+		view.addAttribute("taskForm", new Task());
 		return "home.jsp";
 	}
 	

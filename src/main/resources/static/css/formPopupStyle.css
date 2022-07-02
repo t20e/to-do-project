@@ -62,6 +62,12 @@
     position: relative;
 }
 /* add task pop up  */
+#addTaskPlusImg{
+    margin-top: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
 /* add category pop up  */
 #addTaskPopup{
     width: 100%;

@@ -45,6 +45,9 @@
                             <div class="selectedCategoryName">
                               <H2>All Tasks</H2>
                             </div>
+                            <div>
+                              <img src="/images/plus_sign.svg" id="addTaskPlusImg" alt="plus sign">
+                            </div>
                             <div class="tasksList">
                               <c:forEach items='${ user.tasks }' var='task'>
                                 <div class="checkBoxContainer">
@@ -66,7 +69,7 @@
                           <!-- shows user info and all categories in order by priotity {always show all task as main}-->
                           <div class="rowDashNav">
                             <img src="/images/logo.svg" alt="">
-                            <h3> ${ user.firstName } </h3>
+                            <h3> hey, ${ user.firstName } </h3>
                             <div class="userActions">
                               <a href="/logout">logout</a>
                             </div>
@@ -84,7 +87,7 @@
                                   <p>${category.name}</p>
                                 </div>
                                 <script>
-                                  allCategoriesInOrder.push({"name" : `${category.name}`, "id" : `${category.id}` ,  "priority" : `${category.priority}`})
+                                  allCategoriesInOrder.push({ "name": `${category.name}`, "id": `${category.id}`, "priority": `${category.priority}` })
                                 </script>
                               </button>
                             </c:forEach>
@@ -97,6 +100,9 @@
                       </div>
                     </div>
                   </div>
+
+                  <!-- //test button  -->
+                  <button onclick="testBUtton()">here</button>
                   <footer>
                     <p> &copy to-do-app </p>
                   </footer>
@@ -130,37 +136,35 @@
                   <div id="addTaskPopup">
                     <div class="taskPopUpContent">
                       <h2>Add task</h2>
-                      <form action="/api/task/add" method="post">
-                        <input type="hidden" path="category" value=" ${categoryToShow.id} " />
-                        <input type="hidden" path="user" value=" ${user.id} " />
+                      <form:form id="taskForm" modelAttribute="taskForm">
+                        <form:input type="hidden" name="category_id" path="category" value=" ${categoryToShow.id} " />
                         <div>
-                          <input type="text" class="input" placeHolder="name" />
+                          <form:input class="input" name="name" path="name" placeHolder="name" />
                         </div>
                         <div id="radioHolder">
-                          <h4 class="priotiyCategorytxt">priotity:</h4>
-                          <!-- <div class="radioContainer">
-                            <input type="radio" class="dueRadio_input" path="priority" name="dueRadio" value="1"
-                              id="1" />
-                            <label class="dueRadio_label" for="1">due now</label>
-                            <input type="radio" class="dueRadio_input" path="priority" name="dueRadio" value="2"
-                              id="2" />
-                            <label class="dueRadio_label" for="2">due soon</label>
-                            <input type="radio" class="dueRadio_input" path="priority" name="dueRadio" value="3"
-                              id="3" />
-                            <label class="dueRadio_label" for="3">due later</label>
-                          </div> -->
+                          <div class="radioContainer">
+                            <form:radiobutton class="dueRadio_input" path="priority" name="priority" value="1"
+                              id="one_task" />
+                            <label class="dueRadio_label" for="one_task">low</label>
+                            <form:radiobutton class="dueRadio_input" path="priority" name="priority" value="2"
+                              id="two_task" />
+                            <label class="dueRadio_label" for="two_task">normal</label>
+                            <form:radiobutton class="dueRadio_input" path="priority" name="priority" value="3"
+                              id="three_task" />
+                            <label class="dueRadio_label" for="three_task">High</label>
+                          </div>
                         </div>
                         <div>
-                          <input type="date" class="input" path="due" placeHolder="due" />
+                          <form:input type="date" class="input" path="due" placeHolder="due" />
                         </div>
                         <div>
-                          <input class="input" path="location" placeHolder="location" />
+                          <form:input class="input" path="location" placeHolder="location" />
                         </div>
                         <div>
-                          <input class="input" path="notes" placeHolder="notes" />
+                          <form:input class="input" path="notes" placeHolder="notes" />
                         </div>
                         <input id="btn" type="submit" value="Add" />
-                      </form>
+                      </form:form>
                     </div>
                   </div>
                   <!-- let user know progress on adding items -->

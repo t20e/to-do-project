@@ -4,7 +4,7 @@ $(document).ready(function(){
         $('#addCategoryPopup').addClass("show");
         $('#mainContainer').css("filter", "blur(5px)");
     })
-    $('#addTaskPlusSign').click(function(){
+    $('#addTaskPlusImg').click(function(){
         $('#addTaskPopup').addClass("show");
         $('#mainContainer').css("filter", "blur(5px)");
     })

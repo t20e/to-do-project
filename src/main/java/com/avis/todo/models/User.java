@@ -64,6 +64,7 @@ public class User {
 	private List<DbCategory> categories;
 	
 	@OneToMany(mappedBy = "user")
+	@OrderBy("priority DESC")
 	private List<Task> tasks;
 	
 	public User() {}

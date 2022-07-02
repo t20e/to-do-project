@@ -15,7 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,14 +33,18 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotEmpty(message = "please enter a name")
+	@NotEmpty(message = "enter a task name")
+	@Pattern(regexp=  "^[A-Za-z]*$" , message = "name must be only letters")
+	@Size(min = 2, message = "name must be more than 2 characters")
 	private String name;
 	
 	@Column(nullable = true, length = 64)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date due;
 	
-	@Column(nullable = true, length = 64)
+	@NotNull(message = "please select a priority")
+	@Min(0)
+	@Max(3)
 	private int priority;
 	
 	@Column(nullable = true, length = 128)
@@ -57,7 +66,7 @@ public class Task {
 	private DbCategory category;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
@@ -167,5 +176,6 @@ public class Task {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	
 }

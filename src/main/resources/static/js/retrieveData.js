@@ -1,27 +1,21 @@
 const getTasksPerCat = (categoryId) => {
-    console.log(categoryId);
-    let retrieve = ajaxRetrieve(`/api/category/${categoryId}`)
-    // if(retrieve.callback){
-    //     //do this
-    // }
+    ajaxRetrieve(`/api/category/${categoryId}`)
 }
-// $(document).ready(function(){
-// })
+
 const getAllTasks = () => {
     let retrieve = ajaxRetrieve('/api/task/getAll')
 }
 const ajaxRetrieve = (url) => {
-    $.ajax({
+   $.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
-        success: function (callback) {
-            console.log('successful connection to server', callback);
-            return callback;
+        success: function (response) {
+            console.log('successful connection to server', response);
+            addSelectedCatAsShown(response);
         },
         error: function (xhr, status, errMsg) {
             console.log(xhr, status, errMsg);
-            return 'error'
         }
     })
 }

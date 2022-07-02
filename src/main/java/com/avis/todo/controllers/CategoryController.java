@@ -12,10 +12,6 @@ import com.avis.todo.models.Task;
 import com.avis.todo.models.User;
 import com.avis.todo.services.ServiceCategory;
 import com.avis.todo.services.ServiceUser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +21,6 @@ import static java.lang.System.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
@@ -36,28 +31,50 @@ public class CategoryController {
 
 	@PostMapping(value = "/category/add", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity addCategory(@Valid @RequestBody DbCategory category, BindingResult result, HttpSession session) {
+		HashMap<String, Object> validations = new HashMap<>();
 		if (result.hasErrors()) {
-			HashMap<String, String> validations = new HashMap<>(){{
-				put("validations", "failed");
-			}};
+				validations.put("validations", "failed");
 			return new ResponseEntity<>(validations, HttpStatus.OK);
 		}
 		User user = this.servUser.getOneUser( (Long) session.getAttribute("loggedInUserId"));
-		out.println(user);
 		category.setUser(user);
 		category = categoryService.createCategory(category);
-		HashMap<String, Object> validations = new HashMap<>(){{
-			put("validations", "passed");
-		}};
+		validations.put("validations", "passed");
 		validations.put("category_id", category.getId());
 		validations.put("category_priority", category.getPriority());
+		validations.put("purpose", "category");
 		return new ResponseEntity<>(validations, HttpStatus.OK);
 	}
+
 	@GetMapping("/category/{id}")
-	public List getAllTasksPerCat(@PathVariable("id") Long id){
+	public List allTasksForCat(@PathVariable("id") Long id){
 		DbCategory category = categoryService.getOneCategory(id);
-		List allTasksForCat = category.getTasks();
-		out.print(allTasksForCat);
-		return allTasksForCat;
+		List responseJson = new ArrayList<>();
+		HashMap addName = new HashMap<>() {{
+			put("category_name", category.getName());
+		}};
+		responseJson.add(addName);
+		for(Task task: category.getTasks()) {
+			HashMap<String, Object> allTaskHashMap = new HashMap<>() {{
+			}};
+			allTaskHashMap.put("id", task.getId());
+			allTaskHashMap.put("name", task.getName());
+			allTaskHashMap.put("due", task.getDue());
+			allTaskHashMap.put("priority", task.getPriority());
+			allTaskHashMap.put("location", task.getLocation());
+			allTaskHashMap.put("notes", task.getNotes());
+			allTaskHashMap.put("complete", task.getComplete());
+			allTaskHashMap.put("createdAt", task.getCreatedAt());
+			allTaskHashMap.put("updatedAt", task.getUpdatedAt());
+			responseJson.add(allTaskHashMap);
+		}
+		out.print(responseJson.size());		
+		
+		if (responseJson.size() <= 1) {
+			responseJson.add("no tasks for this category");
+			responseJson.add(false);
+			return responseJson;
+		}
+		return responseJson;
 	}
 }

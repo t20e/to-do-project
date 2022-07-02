@@ -12,12 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -29,8 +29,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "categories")
 public class DbCategory {
-	
-	// String onlyLetters =  "^[A-Za-z]*$";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +42,6 @@ public class DbCategory {
 	@NotNull(message = "please select a priority")
 	@Min(0)
 	@Max(3)
-	// @NotNull)
 	private int priority;
 	
 	@Column(updatable = false)
@@ -54,6 +51,7 @@ public class DbCategory {
 	private Date updatedAt;
 	
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	@OrderBy("priority DESC")
 	private List<Task> tasks;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

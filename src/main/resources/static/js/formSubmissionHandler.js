@@ -1,6 +1,4 @@
 let allCategoriesInOrder = []
-
-
 const closePopups = (popUp) => {
     $(popUp).removeClass("show");
     $('#mainContainer').css("filter", "blur(0px)");
@@ -19,11 +17,71 @@ const closeProgressLoader = () => {
     }, 500);
     $('#addCategoryPlusImg').removeClass('disallow')
 }
-
 const findError = (error) => {
-    console.log(error);
+    console.log(error, "error");
+}
+const addSelectedCatAsShown = (data) => {
+    //retrieve that data from db andd see if it has any tasks
+    $('.selectedCategoryName').empty().append(
+        `<H2>${data[0].category_name}</H2>`
+    )
+    if (data[2] == false) {
+        $('.tasksList').empty().append(
+            ` <div class="checkBoxContainer">
+                     <p class="notaskParagraph">no existing tasks are in this category, click the plus icon to add a task</p>
+            </div>`
+        )
+    } else {
+        data.shift()
+        $('.tasksList').empty()
+        data.forEach(item => {
+            $('.tasksList').append(
+                `<div class="checkBoxContainer">
+                <div class="repeatCheckbox">
+                    <label class="checkBoxLabel">
+                        <input type="checkbox" path="${item.id}" id="${item.name}">
+                        <span class="checkmark"></span>
+                    </label>
+                     <p class="taskParagraph">${item.name}</p>
+                </div>
+            </div>`
+            )
+        })
+    }
 }
 
+const addCatNameTolistUI = (category_name, category_id, category_priority) => {
+    let newItem = { "name": `${category_name}`, "id": `${category_id}`, "priority": `${category_priority}` }
+    if (category_priority == 1) {
+        allCategoriesInOrder.push(newItem)
+    } else {
+        for (let i = 0; i < allCategoriesInOrder.length; i++) {0
+            if (allCategoriesInOrder[i].priority < category_priority) {
+                //check if thats the last item 
+                allCategoriesInOrder.splice(i, 0, newItem)
+                break;
+            }
+        }
+    }
+    $('.rowRepeatContainer').empty();
+    $('.rowRepeatContainer').append(
+        ` <button class="retrieveDataBtn" onclick="getAllTasks()">
+        <div class="rowRepeat">
+          <p>All Tasks</p>
+        </div>
+      </button>`
+    );
+    allCategoriesInOrder.forEach((item) => {
+        $('.rowRepeatContainer').append(
+            `<button class="retrieveDataBtn" onclick="getTasksPerCat('${item.id}')">
+            <div class="rowRepeat">
+            <p>${item.name}</p>
+            </div>
+            </button>`
+        )
+    })
+    getTasksPerCat(category_id)
+}
 $(document).ready(function () {
     $('#categoryForm').submit(function (e) {
         e.preventDefault()
@@ -33,7 +91,23 @@ $(document).ready(function () {
             priority: $('input[name="priority"]:checked').val(),
         };
         let form = this;
+        console.log(formData);
         postData("/api/category/add", formData, form)
+    })
+    $('#taskForm').submit(function (e) {
+        e.preventDefault()
+        showProgressLoader('adding task')
+        let formData = {};
+        let form = this;
+        $.each(this.elements, function (i, v) {
+            let input = $(v);
+            formData[input.attr("name")] = input.val();
+            delete formData["undefined"];
+        });
+        if(formData.category == ''){
+            delete formData.category;
+        }
+        postData("/api/task/add", formData, form)
     })
     const postData = (url, formData, form) => {
         console.log('submitted');
@@ -45,12 +119,21 @@ $(document).ready(function () {
             data: JSON.stringify(formData),
             context: form,
             success: function (callback) {
+                console.log(callback);
+                // check if validations passed
                 if (callback.validations == "passed") {
-                    addCatNameTolistUI(formData.name, callback.category_id, callback.category_priority)
-                    $("#categoryForm").trigger("reset");
                     closePopups('#addCategoryPopup')
                     closeProgressLoader()
-                    //then add that category as the category to show
+                    switch(callback.purpose){
+                        case 'task':
+                            $("#taskForm").trigger("reset");
+                            //get task to show on ui
+                            break;
+                        case 'category':
+                            addCatNameTolistUI(formData.name, callback.category_id, callback.category_priority)
+                            $("#categoryForm").trigger("reset");
+                            break;
+                    }
                 } else {
                     alert("error. Reloading page");
                     window.location.reload()
@@ -60,39 +143,6 @@ $(document).ready(function () {
                 console.log(xhr, status, errMsg);
                 console.error(' adding to db');
             }
-        })
-    }
-    const addCatNameTolistUI = (category_name, category_id, category_priority) => {
-        let newItem = { "name": `${category_name}`, "id": `${category_id}`, "priority": `${category_priority}` }
-        if (category_priority == 1) {
-            allCategoriesInOrder.push(newItem)
-            console.log(allCategoriesInOrder);
-        } else {
-            for (let i = 0; i < allCategoriesInOrder.length; i++) {
-                if (allCategoriesInOrder[i].priority < category_priority) {
-                    //check if thats the last item 
-                    allCategoriesInOrder.splice(i, 0, newItem)
-                    console.log(allCategoriesInOrder);
-                    break;
-                }
-            }
-        }
-        $('.rowRepeatContainer').empty();
-        $('.rowRepeatContainer').append(
-            ` <button class="retrieveDataBtn" onclick="getAllTasks()">
-            <div class="rowRepeat">
-              <p>All Tasks</p>
-            </div>
-          </button>`
-        );
-        allCategoriesInOrder.forEach((item) => {
-            $('.rowRepeatContainer').append(
-                `<button class="retrieveDataBtn" onclick="getTasksPerCat('${item.id}')">
-                <div class="rowRepeat">
-                <p>${item.name}</p>
-                </div>
-                </button>`
-            )
         })
     }
 })
