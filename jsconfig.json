@@ -1,9 +1,0 @@
-//this file forces vsc to add auto suggestions for jquery
-
-{
-    "typeAcquisition": {
-        "include": [
-            "jquery"
-        ]
-    }
-}

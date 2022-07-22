@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.avis.todo.models.DbCategory;
+import com.avis.todo.models.Category;
 import com.avis.todo.repositories.RepoCategory;
 
 @Service
@@ -14,20 +14,20 @@ public class ServiceCategory {
 	private RepoCategory categoryRepo;
 	
 	//create category
-	public DbCategory createCategory(DbCategory c) {
+	public Category createCategory(Category c) {
 		return this.categoryRepo.save(c);
 	}
 	//get all categories
-	public List<DbCategory> getAllCategories(){
-		return (List<DbCategory>)this.categoryRepo.findAll();
+	public List<Category> getAllCategories(){
+		return (List<Category>)this.categoryRepo.findAll();
 	}
 	//get one category by id
-	public DbCategory getOneCategory(Long id) {
+	public Category getOneCategory(Long id) {
 		return this.categoryRepo.findById(id).orElse(null);
 	}
 	
 	//	update Category
-	public DbCategory updateCategory(DbCategory c) {
+	public Category updateCategory(Category c) {
 		return this.categoryRepo.save(c);
 	}
 //	//get all tasks where category id = 8

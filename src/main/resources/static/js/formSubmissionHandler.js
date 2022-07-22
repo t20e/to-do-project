@@ -1,7 +1,7 @@
 let allCategoriesInOrder = []
 const closePopups = (popUp) => {
     $(popUp).removeClass("show");
-    $('#mainContainer').css("filter", "blur(0px)");
+    $('#mainContainer').css("filter",  "blur(0px)");
 }
 const showProgressLoader = (task) => {
     $('.loader').addClass('show')
@@ -22,19 +22,30 @@ const findError = (error) => {
 }
 const addSelectedCatAsShown = (data) => {
     //retrieve that data from db andd see if it has any tasks
-    $('.selectedCategoryName').empty().append(
-        `<H2>${data[0].category_name}</H2>`
-    )
-    if (data[2] == false) {
+    document.title = `category • ${data.category_name}`
+    $('.selectedCategoryName').empty().append(`<H2 class="shownTaskHeader">${data.category_name}</H2>`)
+    taskAddBtn();
+    //change the value of the input to equal that of the category
+    $('#category_id').val(Number(data.category_id));
+    // let catdatefake = {
+    //     "category": "153",
+    //     "name": "going to park",
+    //     "priority": "3",
+    //     "due": "2022-07-21",
+    //     "location": "location here etc",
+    //     "notes": "notes etc"
+    // }
+    // $('#category_id').val(catdatefake);
+    // console.log($('#category_id').val(catdatefake));
+    if (data.task_in_this_cat == false) {
         $('.tasksList').empty().append(
             ` <div class="checkBoxContainer">
                      <p class="notaskParagraph">no existing tasks are in this category, click the plus icon to add a task</p>
             </div>`
         )
     } else {
-        data.shift()
         $('.tasksList').empty()
-        data.forEach(item => {
+        data.allTaskPerCat.forEach(item => {
             $('.tasksList').append(
                 `<div class="checkBoxContainer">
                 <div class="repeatCheckbox">
@@ -55,7 +66,8 @@ const addCatNameTolistUI = (category_name, category_id, category_priority) => {
     if (category_priority == 1) {
         allCategoriesInOrder.push(newItem)
     } else {
-        for (let i = 0; i < allCategoriesInOrder.length; i++) {0
+        for (let i = 0; i < allCategoriesInOrder.length; i++) {
+            0
             if (allCategoriesInOrder[i].priority < category_priority) {
                 //check if thats the last item 
                 allCategoriesInOrder.splice(i, 0, newItem)
@@ -104,9 +116,8 @@ $(document).ready(function () {
             formData[input.attr("name")] = input.val();
             delete formData["undefined"];
         });
-        if(formData.category == ''){
-            delete formData.category;
-        }
+        formData.category = {'id': Number(formData.category)}
+        console.log(formData);
         postData("/api/task/add", formData, form)
     })
     const postData = (url, formData, form) => {
@@ -124,19 +135,21 @@ $(document).ready(function () {
                 if (callback.validations == "passed") {
                     closePopups('#addCategoryPopup')
                     closeProgressLoader()
-                    switch(callback.purpose){
+                    switch (callback.purpose) {
                         case 'task':
                             $("#taskForm").trigger("reset");
                             //get task to show on ui
                             break;
                         case 'category':
                             addCatNameTolistUI(formData.name, callback.category_id, callback.category_priority)
+                            taskAddBtn()
                             $("#categoryForm").trigger("reset");
                             break;
                     }
                 } else {
-                    alert("error. Reloading page");
-                    window.location.reload()
+                    // alert("error. Reloading page");
+                    // window.location.reload()
+                    console.log(callback);
                 }
             },
             error: function (xhr, status, errMsg) {

@@ -1,0 +1,138 @@
+*{
+    box-sizing: border-box;
+}
+.calenderContainer{
+    /* might not be needed top */
+    width: 95%;
+    height: auto;
+        /* change height to auto */
+    border: 2px solid var(--secondaryCoor);
+    border-radius: 1.25em;
+    box-shadow: var(--boxShadow) ;
+}
+.calendar{
+    height: auto;
+    width: 100%;
+    /* background-color: lightblue; */
+    padding: .4em;
+    position: relative;
+    overflow: hidden;
+}
+.calendar-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    font-weight:600;
+    padding: .3em;
+    /* color: ; */
+}
+.month-picker{
+    padding:.3em .6em ;
+    cursor: pointer;
+}
+.month-picker:hover{
+    background-color: blue;
+    border-radius: 1.2em;
+    color: white;
+}
+.year-picker{
+    display: flex;
+    align-items: center;
+}
+.year-picker > span{
+    font-size: .7em;
+}
+.year-change{
+    height: 2.5em;
+    width: 2.5em;
+    display: grid;
+    place-items: center;
+    margin: 0 .6em;
+    cursor: pointer;
+}
+.year-change :hover{
+    background-color: rosybrown;
+}
+.calendar-body{
+    padding: .2em;
+}
+
+.calendar-week-day{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    font-weight: 600;
+    font-size: .7em;
+}
+.calendar-week-day div{
+    display: grid;
+    place-items: center;
+    width: 3.1em;
+    height: 3.1em;
+    color: gray;
+}
+.calendar-days{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0em;
+    font-size: .8em;
+}
+.calendar-days div{
+    width: 3.1em;
+    height: 3.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: .1em; */
+    position: relative;
+    cursor: pointer;
+    
+}
+
+.calendar-days div.curr-date{
+    background-color: blue;
+    color: white;
+    border-radius: 2em;
+}
+
+
+.month-list{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    background-color: white;
+    border-radius: 1.2em;
+    padding: 1.2em;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: .2em;
+    transform: scale(1.5);
+    visibility: hidden;
+    pointer-events: none;
+    transition: all .2s ease-in-out;
+}
+.month-list.show{
+    transform: scale(1);
+    visibility: visible;
+    pointer-events: visible;
+}
+.month-list > div {
+    display: grid;
+    place-items: center;
+}
+.month-list > div > div{
+    width: 100%;
+    padding: .2em .9em;
+    border-radius: .2em;
+    text-align: center;
+    cursor: pointer;
+}
+.month-list > div > div:hover{
+    background-color: deepskyblue;
+    color: white;
+    border-radius: 1.2em;
+}

@@ -1,5 +1,5 @@
 <%@page import="javax.swing.text.View" %>
-  <%@page import="com.avis.todo.models.DbCategory" %>
+  <%@page import="com.avis.todo.models.Category" %>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       <!-- c:out ; c:forEach ; c:if -->
       <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -21,10 +21,15 @@
                     window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')
                       $SCRIPT_ROOT = {{ request.script_root | tojson }};
                       </script> -->
-                  <script type="text/javascript" src="<c:url value='/js/themeController.js' />"></script>
-                  <link rel="stylesheet" href="/css/home_page.css">
-                  <link rel="stylesheet" href="/css/formPopupStyle.css">
+                  <link rel="stylesheet" href="<c:url value=" /css/home_page.css" /> ">
+                  <link rel="stylesheet" href="<c:url value=" /css/formPopupStyle.css" /> ">
+                  <link rel="stylesheet" href="<c:url value=" /css/calendar.css" /> ">
+                  <script type="text/javascript" defer src="<c:url value='/js/themeController.js' />"></script>
                   <script type="text/javascript" src="<c:url value='/js//formSubmissionHandler.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js//calendarController.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js//popUpController.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js//validateForms.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js//retrieveData.js' />"></script>
                 </head>
 
                 <body>
@@ -36,16 +41,46 @@
                     <div class="columnContainer">
                       <div class="columnLeft">
                         <div class="row1">
-                          <div class="calenderContainer"></div>
-                          <!-- calender -->
+                          <div class="calenderContainer">
+                            <div class="calendar">
+                              <div class="calendar-header">
+                                <span class="month-picker" id="month-picker">
+                                </span>
+                                <div class="year-picker">
+                                  <span class="year-change" id="prev-year">
+                                    <pre><</pre>
+                                  </span>
+                                  <span id="year"></span>
+                                  <span class="year-change" id="next-year">
+                                    <pre>></pre>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="calendar-body">
+                                <div class="calendar-week-day"></div>
+                                <div class="calendar-days">
+                                </div>
+                              </div>
+                              <div class="month-list"></div>
+                            </div>
+                          </div>
                         </div>
+
+
+
+
+
+
+
+
+
                         <div class="row2">
                           <!-- selected category  -->
                           <div class="selectedCategoryContainer">
                             <div class="selectedCategoryName">
-                              <H2>All Tasks</H2>
+                              <H2 class="shownTaskHeader">All Tasks</H2>
                             </div>
-                            <div>
+                            <div class="imgPlusDiv">
                               <img src="/images/plus_sign.svg" id="addTaskPlusImg" alt="plus sign">
                             </div>
                             <div class="tasksList">
@@ -100,9 +135,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- //test button  -->
-                  <button onclick="testBUtton()">here</button>
                   <footer>
                     <p> &copy to-do-app </p>
                   </footer>
@@ -137,7 +169,7 @@
                     <div class="taskPopUpContent">
                       <h2>Add task</h2>
                       <form:form id="taskForm" modelAttribute="taskForm">
-                        <form:input type="hidden" name="category_id" path="category" value=" ${categoryToShow.id} " />
+                        <form:input type="hidden" id="category_id" name="category" path="category" value="" />
                         <div>
                           <form:input class="input" name="name" path="name" placeHolder="name" />
                         </div>
@@ -172,9 +204,6 @@
                     <div></div>
                     <p class="loaderP"></p>
                   </div>
-                  <script type="text/javascript" src="<c:url value='/js//popUpController.js' />"></script>
-                  <script type="text/javascript" src="<c:url value='/js//validateForms.js' />"></script>
-                  <script type="text/javascript" src="<c:url value='/js//retrieveData.js' />"></script>
                 </body>
 
                 </html>

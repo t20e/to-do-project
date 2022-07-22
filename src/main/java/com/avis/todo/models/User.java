@@ -21,6 +21,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -61,7 +62,7 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@OrderBy("priority DESC")
-	private List<DbCategory> categories;
+	private List<Category> categories;
 	
 	@OneToMany(mappedBy = "user")
 	@OrderBy("priority DESC")
@@ -127,6 +128,7 @@ public class User {
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -135,6 +137,7 @@ public class User {
 		this.password = password;
 	}
 
+	@JsonIgnore
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
@@ -167,11 +170,11 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<DbCategory> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<DbCategory> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 

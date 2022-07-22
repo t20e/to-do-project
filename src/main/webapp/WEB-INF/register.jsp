@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Register</title>
-<link rel="stylesheet" href="/css/register_page.css">
+<link rel="stylesheet" href="<c:url value="/css/register_page.css" /> ">
 </head>
 <body>
 

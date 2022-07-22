@@ -3,6 +3,7 @@ package com.avis.todo.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,19 +24,24 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
 @Table(name = "categories")
-public class DbCategory {
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id" )
+public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotEmpty(message = "enter a category name")
-	@Pattern(regexp=  "^[A-Za-z]*$" , message = "name must be only letters")
+	@Pattern(regexp=  "^[\\p{L} .'-]+$" , message = "name must be only letters")
 	@Size(min = 2, message = "category name must be more than 2 characters")
 	private String name;
 	
@@ -49,7 +55,7 @@ public class DbCategory {
 	private Date createdAt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
-	
+
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	@OrderBy("priority DESC")
 	private List<Task> tasks;
@@ -58,9 +64,9 @@ public class DbCategory {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	public DbCategory() {}
+	public Category() {}
 	
-	public DbCategory(String name, int priority) {
+	public Category(String name, int priority, Task task, User user) {
 		this.name = name;
 		this.priority = priority;
 	}

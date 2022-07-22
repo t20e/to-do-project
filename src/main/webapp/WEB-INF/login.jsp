@@ -14,7 +14,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<link rel="stylesheet" href="/css/login_page.css">
+<link rel="stylesheet" href="<c:url value="/css/login_page.css" /> ">
+
 </head>
 <body>
 

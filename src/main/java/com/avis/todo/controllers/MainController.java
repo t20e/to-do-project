@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.avis.todo.models.DbCategory;
+import com.avis.todo.models.Category;
 import com.avis.todo.models.Task;
 import com.avis.todo.services.ServiceCategory;
 import com.avis.todo.services.ServiceTask;
@@ -29,7 +29,7 @@ public class MainController {
 			return "redirect:/login";
 		}
 		view.addAttribute("user", this.userService.getOneUser(idInSession));
-		view.addAttribute("categoryForm", new DbCategory());
+		view.addAttribute("categoryForm", new Category());
 		view.addAttribute("taskForm", new Task());
 		return "home.jsp";
 	}

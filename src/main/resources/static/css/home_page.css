@@ -96,21 +96,11 @@ h3, h2{
 
 .row1{
     height: auto;
-    /* change height to auto */
     width: 100%;
     display: flex;
     justify-content: center;
 }
-/* calendar */
-.calenderContainer{
-    /* might not be needed top */
-    width: 95%;
-    height: 300px;
-        /* change height to auto */
-    border: 2px solid var(--secondaryCoor);
-    border-radius: 20px;
-    box-shadow: var(--boxShadow) ;
-}
+/* calendar css is in its own file */
 .row2{
     margin-top: 15px;
     height: auto;
@@ -126,7 +116,7 @@ h3, h2{
     height: auto;
         /* change height to auto */
     border: 2px solid var(--secondaryCoor);
-    border-radius: 20px;
+    border-radius: 1.25em;
     box-shadow: var(--boxShadow) ; 
     display: flex;
     justify-content: center;
@@ -161,7 +151,7 @@ h3, h2{
     height: auto;
         /* change height to auto */
     border: 2px solid var(--secondaryCoor);
-    border-radius: 20px;
+    border-radius: 1.25em;
     box-shadow: var(--boxShadow) ; 
     display: flex;
     flex-direction: column;
