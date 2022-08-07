@@ -34,7 +34,6 @@
     position: absolute;
     top: 15%;
     display: none; 
-     /* change to display:  none; */
     justify-content: center;
     align-items: flex-start;
     text-align: center;
@@ -99,56 +98,6 @@
     padding: 20px;
     border-radius: 20px;
     position: relative;
-}
-.taskParagraph{
-    white-space: nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    margin-left: 10px;
-}
-/* check box customize */
-.checkBoxContainer{
-    width: 95%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-.repeatCheckbox{
-    margin: 15px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.checkBoxLabel{
-    width: 50px;
-    height: 25px;
-    cursor: pointer;
-    margin: 0px 10px;
-}
-.checkmark {
-    margin-left: 15px;
-}
-.checkBoxLabel .checkmark{
-    border-radius: 10px;
-    width: 22px;
-    height: 22px;
-    border: 1.5px solid black;
-    display: block;
-    background: black  url(/images/white_checkMark_img.svg) center/1250% no-repeat ;
-    background-color: whitesmoke;
-    transition: background-size .5s ease ;
-    background-size: 0%;
-}
-.checkBoxLabel > input{
-    display: none;
-}
-.checkBoxLabel > input:checked + .checkmark{
-    background-size: 100%;
-    background-color: var(--primaryColor);
-    transition: background-size .5s ease cubic-bezier(0.25, 0.1, 1, 5.68);
 }
 
 

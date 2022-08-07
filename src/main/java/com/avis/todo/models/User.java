@@ -65,7 +65,7 @@ public class User {
 	private List<Category> categories;
 	
 	@OneToMany(mappedBy = "user")
-	@OrderBy("priority DESC")
+	@OrderBy("complete ASC, priority DESC, due ASC ")
 	private List<Task> tasks;
 	
 	public User() {}
@@ -128,7 +128,6 @@ public class User {
 		this.email = email;
 	}
 
-	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -137,7 +136,6 @@ public class User {
 		this.password = password;
 	}
 
-	@JsonIgnore
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
@@ -185,7 +183,6 @@ public class User {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-
 	
 	
 }

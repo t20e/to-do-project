@@ -71,11 +71,70 @@ h3, h2{
     left: 40px;
 }
 
+/* check box customize */
+.repeatCheckbox{
+    margin: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.checkBoxLabel{
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+/* for checkbox tasks */
+.checkmark {
+    margin-left: 15px;
+}
+.checkBoxLabel .checkmark{
+    border-radius: 10px;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid black;
+    display: block;
+    background: black  url(/images/white_checkMark_img.svg) center/1250% no-repeat ;
+    background-color: whitesmoke;
+    transition: background-size .5s ease ;
+    background-size: 0%;
+}
+.checkBoxLabel > input{
+    display: none;
+}
+.checkBoxLabel > input + .checkmark{
+    background-size: 100%;
+    background-color: white;
+    transition: background-size .5s ease cubic-bezier(0.25, 0.1, 1, 5.68);
+}
+.checkBoxLabel > input:checked + .checkmark.--taskFormComplete{
+    background-color: gray;
+}
+/* safety */
+/* .checkBoxLabel > input:checked + .checkmark{
+    background-size: 100%;
+    background-color: red;
+    transition: background-size .5s ease cubic-bezier(0.25, 0.1, 1, 5.68);
+}
+.checkBoxLabel > input:checked + .checkmark.--taskFormComplete{
+    background-color: gray;
+} */
+.taskParagraph{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-left: 10px;
+}
+.--taskComplete{
+    text-decoration: line-through;
+    color: grey;
+}
 /* ****** end */
 
 #mainContainer{
     margin:0px auto;
-    width: 950px;
+    width: 60rem;
     height: auto;
     border-bottom-right-radius: 50px;
     border-bottom-left-radius: 50px;
@@ -88,7 +147,7 @@ h3, h2{
     justify-content: space-evenly;
 }
 .columnLeft{
-    height: 900px;
+    height: auto;
     /* change height to auto */
     width: 60%;
     display: inline-block;
@@ -131,6 +190,12 @@ h3, h2{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+/* no task p for cat  */
+.notaskParagraph{
+    color: gray;
+    font-size: 12px;
+    margin: 25px 0px;
 }
 .tasksList{
     width: 100%;
@@ -233,13 +298,6 @@ a{
 p{
     color: #2c7b79;
 }
-footer{
-    margin-bottom: 10px;
-    height: 20vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
 /* loading display */
 .loader{
     display: none;
@@ -276,9 +334,7 @@ footer{
         transform: rotate(360deg);
     }
 }
-/* no task p for cat  */
-.notaskParagraph{
-    color: gray;
-    font-size: 12px;
-    margin: 25px 0px;
+footer{
+    margin: 1em 0;
+    text-align: center;
 }

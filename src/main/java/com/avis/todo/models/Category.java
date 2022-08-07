@@ -33,7 +33,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "categories")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id" )
 public class Category {
 	
 	@Id
@@ -57,7 +56,7 @@ public class Category {
 	private Date updatedAt;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-	@OrderBy("priority DESC")
+	@OrderBy("complete DESC, priority DESC, due ASC ")
 	private List<Task> tasks;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -27,9 +27,9 @@
                   <script type="text/javascript" defer src="<c:url value='/js/themeController.js' />"></script>
                   <script type="text/javascript" src="<c:url value='/js//formSubmissionHandler.js' />"></script>
                   <script type="text/javascript" defer src="<c:url value='/js//calendarController.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js//retrieveData.js' />"></script>
                   <script type="text/javascript" defer src="<c:url value='/js//popUpController.js' />"></script>
                   <script type="text/javascript" defer src="<c:url value='/js//validateForms.js' />"></script>
-                  <script type="text/javascript" defer src="<c:url value='/js//retrieveData.js' />"></script>
                 </head>
 
                 <body>
@@ -65,15 +65,6 @@
                             </div>
                           </div>
                         </div>
-
-
-
-
-
-
-
-
-
                         <div class="row2">
                           <!-- selected category  -->
                           <div class="selectedCategoryContainer">
@@ -85,16 +76,25 @@
                             </div>
                             <div class="tasksList">
                               <c:forEach items='${ user.tasks }' var='task'>
-                                <div class="checkBoxContainer">
-                                  <div class="repeatCheckbox">
-                                    <label class="checkBoxLabel">
-                                      <input type="checkbox" path="${task.id}" id="${task.name}">
-                                      <span class="checkmark"></span>
-                                    </label>
-                                    <p class="taskParagraph">${task.name}</p>
+                                  <div class="repeatCheckbox --r{task.id}">
+                                    <c:if test='${task.complete == false }'>
+                                      <label class="checkBoxLabel">
+                                        <input type="checkbox" name='${task.id}input'
+                                          onchange="completeTask(`${task.id}`)">
+                                        <span class="checkmark --span${task.id}"></span>
+                                      </label>
+                                      <p class="taskParagraph --p${task.id}">${task.name}</p>
+                                    </c:if>
+                                    <c:if test='${task.complete == true}'>
+                                      <label class="checkBoxLabel">
+                                        <input type="checkbox" checked name='${task.id}input'
+                                          onchange="completeTask(`${task.id}`)">
+                                        <span class="checkmark --taskFormComplete --span${task.id}"></span>
+                                      </label>
+                                      <p class="taskParagraph --taskComplete --p${task.id}">${task.name}</p>
+                                    </c:if>
                                   </div>
-                                </div>
-                              </c:forEach>
+                                </c:forEach>
                             </div>
                           </div>
                         </div>
@@ -135,9 +135,6 @@
                       </div>
                     </div>
                   </div>
-                  <footer>
-                    <p> &copy to-do-app </p>
-                  </footer>
                   <!-- pop ups below -->
                   <div id="addCategoryPopup">
                     <div class="popUpContent">
@@ -192,6 +189,7 @@
                         <div>
                           <form:input class="input" path="location" placeHolder="location" />
                         </div>
+                        <!-- TODO -->
                         <div>
                           <form:input class="input" path="notes" placeHolder="notes" />
                         </div>
@@ -204,6 +202,9 @@
                     <div></div>
                     <p class="loaderP"></p>
                   </div>
+                  <footer>
+                    <p> &copy to-do-app </p>
+                  </footer>
                 </body>
 
                 </html>

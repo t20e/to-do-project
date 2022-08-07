@@ -26,12 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "tasks")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id" )
 public class Task {
-
-	// @Transient
-	// @Autowired
-	// ServiceCategory catServ;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +52,7 @@ public class Task {
 	@Column(nullable = true, length = 5000)
 	private String notes;
 	@Column(nullable = true)
-	private int complete;
+	private Boolean complete;
 
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -66,8 +61,6 @@ public class Task {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 
-	// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-	// property = "id", scope = Long.class)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
@@ -79,12 +72,7 @@ public class Task {
 	public Task() {
 	}
 
-	// @Transient
-	// public DbCategory getCategory(String categoryId) {
-	// return catServ.getOneCategory( Long.parseLong(categoryId));
-	// }
 	public Task(String name, Date due, int priority, String location, String notes, Category category, User user) {
-		// this.category = getCategory(category);
 		this.category = category;
 		this.name = name;
 		this.due = due;
@@ -151,11 +139,11 @@ public class Task {
 		this.notes = notes;
 	}
 
-	public int getComplete() {
+	public Boolean getComplete() {
 		return complete;
 	}
 
-	public void setComplete(int complete) {
+	public void setComplete(Boolean complete) {
 		this.complete = complete;
 	}
 
@@ -190,5 +178,6 @@ public class Task {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 
 }

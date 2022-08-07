@@ -16,8 +16,6 @@ import com.avis.todo.services.ServiceUser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
