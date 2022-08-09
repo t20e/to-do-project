@@ -1,1 +1,11 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.06 13.06"><defs><style>.cls-1{fill:#8ad2d8;}</style></defs><path class="cls-1" d="M11.89,4.57H8.5V1.18A1.18,1.18,0,0,0,7.32,0H5.74A1.18,1.18,0,0,0,4.57,1.18V4.57H1.18A1.18,1.18,0,0,0,0,5.74V7.32A1.18,1.18,0,0,0,1.18,8.5H4.57v3.39a1.18,1.18,0,0,0,1.17,1.17H7.32A1.18,1.18,0,0,0,8.5,11.89V8.5h3.39a1.18,1.18,0,0,0,1.17-1.18V5.74A1.18,1.18,0,0,0,11.89,4.57Z"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 13.1 13.1" style="enable-background:new 0 0 13.1 13.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#3AAFA9;}
+</style>
+<path class="st0" d="M11.9,4.6H8.5V1.2C8.5,0.5,8,0,7.3,0H5.7C5.1,0,4.6,0.5,4.6,1.2v3.4H1.2C0.5,4.6,0,5.1,0,5.7v1.6
+	C0,8,0.5,8.5,1.2,8.5h3.4v3.4c0,0.6,0.5,1.2,1.2,1.2h1.6c0.6,0,1.2-0.5,1.2-1.2V8.5h3.4c0.6,0,1.2-0.5,1.2-1.2V5.7
+	C13.1,5.1,12.5,4.6,11.9,4.6z"/>
+</svg>

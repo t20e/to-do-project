@@ -1,1 +1,1 @@
-currently making changes to the app so it can be more user frienldy. utilizing jquery
+this is a portfolio project to display my knowledge with java spring. This project was finished but lacked dynamic user interfaces. I integrated jquery, and ajax to improve its UI features. 

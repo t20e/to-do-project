@@ -21,21 +21,20 @@
                     window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')
                       $SCRIPT_ROOT = {{ request.script_root | tojson }};
                       </script> -->
-                  <link rel="stylesheet" href="<c:url value=" /css/home_page.css" /> ">
-                  <link rel="stylesheet" href="<c:url value=" /css/formPopupStyle.css" /> ">
-                  <link rel="stylesheet" href="<c:url value=" /css/calendar.css" /> ">
+                      <link rel="stylesheet" href="<c:url value=" /css/formPopupStyle.css" /> ">
+                      <link rel="stylesheet" href="<c:url value=" /css/calendar.css" /> ">
+                      <link rel="stylesheet" href="<c:url value=" /css/home_page.css" /> ">
                   <script type="text/javascript" defer src="<c:url value='/js/themeController.js' />"></script>
                   <script type="text/javascript" src="<c:url value='/js//formSubmissionHandler.js' />"></script>
-                  <script type="text/javascript" defer src="<c:url value='/js//calendarController.js' />"></script>
-                  <script type="text/javascript" defer src="<c:url value='/js//retrieveData.js' />"></script>
-                  <script type="text/javascript" defer src="<c:url value='/js//popUpController.js' />"></script>
-                  <script type="text/javascript" defer src="<c:url value='/js//validateForms.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js/calendarController.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js/retrieveData.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js/popUpController.js' />"></script>
+                  <script type="text/javascript" defer src="<c:url value='/js/validateForms.js' />"></script>
                 </head>
 
                 <body>
                   <div id="mainContainer">
                     <div class="btn1div">
-                      <!-- button one -->
                       <input type="checkbox" id="themeToggle" name="btnToggle">
                     </div>
                     <div class="columnContainer">
@@ -76,7 +75,7 @@
                             </div>
                             <div class="tasksList">
                               <c:forEach items='${ user.tasks }' var='task'>
-                                  <div class="repeatCheckbox --r{task.id}">
+                                  <div class="repeatCheckbox --r${task.id}">
                                     <c:if test='${task.complete == false }'>
                                       <label class="checkBoxLabel">
                                         <input type="checkbox" name='${task.id}input'
@@ -101,7 +100,7 @@
                       </div>
                       <div class="columnRight">
                         <div class="dashboard">
-                          <!-- shows user info and all categories in order by priotity {always show all task as main}-->
+                          <!-- shows user info and all categories in order by priority {always show all task as main}-->
                           <div class="rowDashNav">
                             <img src="/images/logo.svg" alt="">
                             <h3> hey, ${ user.firstName } </h3>
@@ -112,13 +111,13 @@
                           <div class="rowRepeatContainer">
                             <!-- this will call jquery to get all tasks for user in all tasks table -->
                             <button class="retrieveDataBtn" onclick="getAllTasks()">
-                              <div class="rowRepeat">
+                              <div class="rowRepeat --selectCatDiv0">
                                 <p>All Tasks</p>
                               </div>
                             </button>
                             <c:forEach items='${ user.categories }' var='category'>
                               <button class="retrieveDataBtn" onclick="getTasksPerCat('${category.id}')">
-                                <div class="rowRepeat">
+                                <div class="rowRepeat --selectCatDiv${category.id}">
                                   <p>${category.name}</p>
                                 </div>
                                 <script>
@@ -137,7 +136,7 @@
                   </div>
                   <!-- pop ups below -->
                   <div id="addCategoryPopup">
-                    <div class="popUpContent">
+                    <div class="popUpContent addCatPopUp">
                       <!-- content -->
                       <h2>Create Category</h2>
                       <form:form id="categoryForm" modelAttribute="categoryForm">
@@ -163,7 +162,7 @@
                     </div>
                   </div>
                   <div id="addTaskPopup">
-                    <div class="taskPopUpContent">
+                    <div class="taskPopUp popUpContent">
                       <h2>Add task</h2>
                       <form:form id="taskForm" modelAttribute="taskForm">
                         <form:input type="hidden" id="category_id" name="category" path="category" value="" />

@@ -1,3 +1,4 @@
+let currentCat = { img: null, div: null }
 let allCategoriesInOrder = [];
 const showProgressLoader = (task) => {
   $(".loader").addClass("show");
@@ -13,9 +14,15 @@ const closeProgressLoader = () => {
   }, 500);
   $("#addCategoryPlusImg").removeClass("disallow");
 };
-const findError = (error) => {
-  console.log(error, "error");
-};
+const moveTheCurrCatArrow = (id) =>{
+  if (currentCat.img !== null) {
+    currentCat.img.remove()
+  }
+  currentCat.div = $('.--selectCatDiv' + id)
+  currentCat.div.prepend(`<img src="/images/dark_blue_arrow_right.svg" class="currentCatArrow --arrowImg${id}" alt="current selected category">`)
+  currentCat.img = $(".--arrowImg" + id)
+}
+
 const addSelectedCatAsShown = (data) => {
   //retrieve that data from db and see if it has any tasks
   document.title = `category • ${data.category_name}`;
@@ -23,6 +30,7 @@ const addSelectedCatAsShown = (data) => {
     .empty()
     .append(`<H2 class="shownTaskHeader">${data.category_name}</H2>`);
   taskAddBtn();
+  moveTheCurrCatArrow(data.category_id)
   //change the value of the input to equal that of the category
   $("#category_id").val(Number(data.category_id));
   if (data.task_in_this_cat == false) {
@@ -38,21 +46,22 @@ const addSelectedCatAsShown = (data) => {
       if (item.complete) {
         taskHolder = `
         <label class="checkBoxLabel">
-          <input type="checkbox" name="task_id" onchange="completeTask(${item.id})">
-         <span class="checkmark"></span>
-        </label>
-        <p class="taskParagraph">${item.name}</p>`;
+        <input type="checkbox" name='${item.id}input'
+          onchange="completeTask(${item.id})">
+        <span class="checkmark --span${item.id}"></span>
+      </label>
+      <p class="taskParagraph --p${item.id}">${item.name}</p>`;
       } else {
         taskHolder = `
         <label class="checkBoxLabel">
-          <input type="checkbox" checked name="task_id"
+        <input type="checkbox" checked name='${item.id}input'
           onchange="completeTask(${item.id})">
-          <span class="checkmark --taskFormComplete"></span>
-        </label>
-        <p class="taskParagraph --taskComplete">${item.name}</p>`;
+        <span class="checkmark --taskFormComplete --span${item.id}"></span>
+      </label>
+      <p class="taskParagraph --taskComplete --p${item.id}">${item.name}</p>`;
       }
       $(".tasksList").append(
-        `<div class="repeatCheckbox">${taskHolder}</div>`
+        `<div class="repeatCheckbox --r${item.id}">${taskHolder}</div>`
       );
     });
   }
@@ -136,13 +145,19 @@ const toggleTaskCheckbox = (taskId) => {
   let p = $('.--p' + taskId);
   p.toggleClass('--taskComplete')
   // TODO remove the main div then append it back but at the end of the taskLists
+  let taskDiv = $('.--r' + taskId)
+  if (span.hasClass('--taskFormComplete')) {
+    setTimeout(function () {
+      $('.--r' + taskId).remove()
+      $('.tasksList').append(taskDiv)
+    }, 1000)
+  } else {
+    setTimeout(function () {
+      $('.--r' + taskId).remove()
+      $('.tasksList').prepend(taskDiv)
+    }, 1000)
+  }
 };
-// const moveTask = (id)=>{
-//   const taskDiv = $('.--r'+ id)
-//   $('.--r'+id).remove()
-//   console.log('ji');
-//   clearTimeout(moveTask)
-// }
 
 const postData = (url, formData, form) => {
   // console.log("submitted");

@@ -56,7 +56,7 @@ public class Category {
 	private Date updatedAt;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-	@OrderBy("complete DESC, priority DESC, due ASC ")
+	@OrderBy("complete ASC, priority DESC, due ASC ")
 	private List<Task> tasks;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

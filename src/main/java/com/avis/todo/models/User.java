@@ -64,7 +64,7 @@ public class User {
 	@OrderBy("priority DESC")
 	private List<Category> categories;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@OrderBy("complete ASC, priority DESC, due ASC ")
 	private List<Task> tasks;
 	

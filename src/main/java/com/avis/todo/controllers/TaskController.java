@@ -26,7 +26,6 @@ import com.avis.todo.services.ServiceCategory;
 import com.avis.todo.services.ServiceTask;
 import com.avis.todo.services.ServiceUser;
 
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
@@ -39,10 +38,33 @@ public class TaskController {
 	private ServiceCategory catServ;
 
 	@GetMapping("/task/getAll")
-	public List getAllTasks(HttpSession session) {
+	public HashMap getAllTasks(HttpSession session) {
 		User user = userServ.getOneUser((Long) session.getAttribute("loggedInUserId"));
-		List allTasksPerUser = user.getTasks();
-		return allTasksPerUser;
+		List<Task> tasks = user.getTasks();
+		List divideTasks = new ArrayList();
+		for (Task task : tasks) {
+			HashMap<String, Object> allTaskHashMap = new HashMap<>() {
+				{
+					put("id", task.getId());
+					put("name", task.getName());
+					put("due", task.getDue());
+					put("priority", task.getPriority());
+					put("location", task.getLocation());
+					put("notes", task.getNotes());
+					put("complete", task.getComplete());
+				}
+			};
+			divideTasks.add(allTaskHashMap);
+		}
+		HashMap<String, Object> jsonRes = new HashMap<>() {
+			{
+				put("category_name", "all tasks");
+				put("allTaskPerCat", divideTasks);
+				put("category_id", 0);
+			}
+		};
+
+		return jsonRes;
 	}
 
 	@PostMapping(value = "/task/add", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -65,16 +87,18 @@ public class TaskController {
 		// System.out.println(catServ.getOneCategory( (Long) task.getCategory()));
 		return response;
 	}
-	// since this get doesn't use json only a path variable then u don't need consumes = MediaType.APPLICATION_JSON
+
+	// since this get doesn't use json only a path variable then u don't need
+	// consumes = MediaType.APPLICATION_JSON
 	@GetMapping(value = "/task/forCalendar/{date}")
-	public HashMap getTasksForCalendarHashMap(@PathVariable("date") String date, HttpSession session){
+	public HashMap getTasksForCalendarHashMap(@PathVariable("date") String date, HttpSession session) {
 		String year = date.substring(0, 4);
 		String month = date.substring(4);
 		System.out.println(month);
 		System.out.println(year);
 		// use the date and year to query the db for all task for it
 		List divideTasks = new ArrayList();
-		List<Task> tasks= taskServ.getAllTasksInDate(month, year, (Long) session.getAttribute("loggedInUserId"));
+		List<Task> tasks = taskServ.getAllTasksInDate(month, year, (Long) session.getAttribute("loggedInUserId"));
 		for (Task task : tasks) {
 			HashMap<String, Object> allTaskHashMap = new HashMap<>() {
 				{
@@ -99,21 +123,23 @@ public class TaskController {
 		};
 		return allTasksHashMap;
 	}
-	
+
 	@PostMapping(value = "/task/complete")
 	public HashMap completeTask(HttpEntity<HashMap> httpEntity) {
 		HashMap json = httpEntity.getBody();
-//		System.out.printf("taskId: %s other var: %s", json.get("taskId"), json);
-		Task task = taskServ.getOneTask( Long.valueOf(json.get("taskId").toString()));
+		// System.out.printf("taskId: %s other var: %s", json.get("taskId"), json);
+		Task task = taskServ.getOneTask(Long.valueOf(json.get("taskId").toString()));
 		task.setComplete(!task.getComplete());
 		taskServ.updateTask(task);
-//		System.out.println(idLong.getClass());
-		HashMap resJson = new HashMap<>() {{
-			put("purpose", "completeTask");
-			put("taskId", task.getId());
-			put("complete", task.getComplete());
-			put("validations", "passed");
-		}};
+		// System.out.println(idLong.getClass());
+		HashMap resJson = new HashMap<>() {
+			{
+				put("purpose", "completeTask");
+				put("taskId", task.getId());
+				put("complete", task.getComplete());
+				put("validations", "passed");
+			}
+		};
 		return resJson;
 	}
 }

@@ -2,8 +2,7 @@ const getTasksPerCat = (categoryId) => {
   ajaxRetrieve(`/api/category/${categoryId}`);
 };
 const getAllTasks = () => {
-  // this is for when user clicks the All tasks button
-  let retrieve = ajaxRetrieve("/api/task/getAll");
+  ajaxRetrieve("/api/task/getAll");
 };
 const ajaxRetrieve = (url) => {
   $.ajax({
