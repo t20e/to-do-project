@@ -58,9 +58,10 @@ public class TaskController {
 		}
 		HashMap<String, Object> jsonRes = new HashMap<>() {
 			{
-				put("category_name", "all tasks");
+				put("category_name", "All Tasks");
 				put("allTaskPerCat", divideTasks);
 				put("category_id", 0);
+				put("purpose", "category");
 			}
 		};
 
@@ -76,6 +77,8 @@ public class TaskController {
 			response.put("formErrors", "");
 			return response;
 		}
+		task.setComplete(false);
+//		System.out.printf("task complete: %s /n",task.getComplete());
 		task.setUser(this.userServ.getOneUser((Long) session.getAttribute("loggedInUserId")));
 		this.taskServ.createTask(task);
 		response.put("purpose", "task");
@@ -94,12 +97,13 @@ public class TaskController {
 	public HashMap getTasksForCalendarHashMap(@PathVariable("date") String date, HttpSession session) {
 		String year = date.substring(0, 4);
 		String month = date.substring(4);
-		System.out.println(month);
-		System.out.println(year);
+		System.out.printf("month: %s, year: %s %n",month, year);
 		// use the date and year to query the db for all task for it
 		List divideTasks = new ArrayList();
 		List<Task> tasks = taskServ.getAllTasksInDate(month, year, (Long) session.getAttribute("loggedInUserId"));
 		for (Task task : tasks) {
+			System.out.println(task.getName());
+			
 			HashMap<String, Object> allTaskHashMap = new HashMap<>() {
 				{
 					put("id", task.getId());
@@ -123,7 +127,40 @@ public class TaskController {
 		};
 		return allTasksHashMap;
 	}
+	@GetMapping(value = "/task/forCalendarToShow/{date}")
+	public HashMap calendarTaskToDisplay(@PathVariable("date") String date, HttpSession session) {
+		String year = date.substring(0, 4);
+		String month = date.substring(4,6);
+		String day = date.substring(6,8);
+		System.out.printf("year; %s, month: %s, day: %s", year, month, day);
+		List divideTasks = new ArrayList();
+		List<Task> tasks = taskServ.getTaskForCal(year, month, day, (Long) session.getAttribute("loggedInUserId"));
+		for (Task task : tasks) {
+			HashMap<String, Object> allTaskHashMap = new HashMap<>() {
+				{
+					put("id", task.getId());
+					put("name", task.getName());
+					put("due", task.getDue());
+					put("priority", task.getPriority());
+					put("location", task.getLocation());
+					put("notes", task.getNotes());
+				}
+			};
+			divideTasks.add(allTaskHashMap);
+		}
 
+		HashMap<String, Object> allTasksHashMap = new HashMap<>() {
+			{
+				put("year", year);
+				put("month", month);
+				put("day",day);
+				put("tasks", divideTasks);
+				put("purpose", "showTaskOnCalendar");
+			}
+		};
+		return allTasksHashMap;
+	}
+	
 	@PostMapping(value = "/task/complete")
 	public HashMap completeTask(HttpEntity<HashMap> httpEntity) {
 		HashMap json = httpEntity.getBody();

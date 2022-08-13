@@ -22,6 +22,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.*;
+
+import org.hibernate.annotations.Type;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -41,8 +44,9 @@ public class Task {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date due;
 
+	@Column(name = "priority", nullable = false)
 	@NotNull(message = "please select a priority")
-	@Min(0)
+	@Min(1)
 	@Max(3)
 	private int priority;
 
@@ -51,7 +55,8 @@ public class Task {
 
 	@Column(nullable = true, length = 5000)
 	private String notes;
-	@Column(nullable = true)
+	
+	@Column(nullable = true, columnDefinition = "TINYINT(0)")
 	private Boolean complete;
 
 	@Column(updatable = false)

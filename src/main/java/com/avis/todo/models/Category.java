@@ -44,8 +44,9 @@ public class Category {
 	@Size(min = 2, message = "category name must be more than 2 characters")
 	private String name;
 	
+//	@Column(name = "priority", nullable = false)
 	@NotNull(message = "please select a priority")
-	@Min(0)
+	@Min(1)
 	@Max(3)
 	private int priority;
 	
@@ -58,6 +59,7 @@ public class Category {
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	@OrderBy("complete ASC, priority DESC, due ASC ")
 	private List<Task> tasks;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)

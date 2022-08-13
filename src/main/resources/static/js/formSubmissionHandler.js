@@ -1,20 +1,37 @@
 let currentCat = { img: null, div: null }
-let allCategoriesInOrder = [];
+
 const showProgressLoader = (task) => {
   $(".loader").addClass("show");
   $(".loaderP").text(task);
   // stop user from creating more tasks if this is still loading
   $("#addCategoryPlusImg").addClass("disallow");
 };
+const tips = ['tip: ']['Hover over calendar day to show what tasks are due!','click the month to select a new month', 'add more tasks!', 'toggle theme checkbox']
+const showTips = () => {
+  console.log($('.loaderP').text());
+  setInterval(function () {
+    console.log('i');
+    if($('.loaderP').text() == 'null'){
+      showProgressLoader(`${tips[0]} ${tips[1][Math.floor(Math.random() * tips.length)]}`)
+      setTimeout(function () {
+        closeProgressLoader()
+      }, 2000)
+    }
+  }, 4000)
+}
+
+showTips()
+
 const closeProgressLoader = () => {
   $(".loader").animate({ left: "-200px" });
   setTimeout(() => {
     $(".loader").removeClass("show");
     $(".loader").animate({ left: "0pc" });
+    $('.loaderP').text('null')
   }, 500);
   $("#addCategoryPlusImg").removeClass("disallow");
 };
-const moveTheCurrCatArrow = (id) =>{
+const moveTheCurrCatArrow = (id) => {
   if (currentCat.img !== null) {
     currentCat.img.remove()
   }
@@ -41,9 +58,9 @@ const addSelectedCatAsShown = (data) => {
       );
   } else {
     $(".tasksList").empty();
-    data.allTaskPerCat.forEach((item) => {
+    data.allTaskPerCat.reverse().forEach((item) => {
       let taskHolder;
-      if (item.complete) {
+      if (item.complete == false) {
         taskHolder = `
         <label class="checkBoxLabel">
         <input type="checkbox" name='${item.id}input'
@@ -165,7 +182,7 @@ const postData = (url, formData, form) => {
     type: "POST",
     url: url,
     dataType: "json",
-    contentType: "application/json; charset=utf-8",
+    contentType: "application/json",
     data: JSON.stringify(formData),
     context: form,
     success: function (callback) {
@@ -194,8 +211,10 @@ const postData = (url, formData, form) => {
             break;
         }
       } else {
-        // alert("error. Reloading page");
-        // window.location.reload()
+        showProgressLoader('error please try again')
+        setTimeout(() => {
+          closeProgressLoader();
+        }, 4000);
       }
     },
     error: function (xhr, status, errMsg) {

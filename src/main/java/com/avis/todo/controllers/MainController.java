@@ -29,8 +29,8 @@ public class MainController {
 			return "redirect:/login";
 		}
 		view.addAttribute("user", this.userService.getOneUser(idInSession));
-		view.addAttribute("categoryForm", new Category());
-		view.addAttribute("taskForm", new Task());
+//		view.addAttribute("categoryForm", new Category());
+//		view.addAttribute("taskForm", new Task());
 		return "home.jsp";
 	}
 	

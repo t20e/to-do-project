@@ -61,6 +61,15 @@
     position: relative;
     padding: 1em 2em;
 }
+.closePopUp{
+    width: 5em;
+    color: var(--textColor);
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    margin-top: 2em;
+    cursor: pointer;
+}
 
 .addCatPopUp {
     height: auto;

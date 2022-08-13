@@ -12,7 +12,7 @@
     --textColor: black;
     --boxShadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     --boxShadowPopUp: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-
+    --colorSchema: light;
     --borderBoxShadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -21,6 +21,7 @@ h2 {
     font-family: var(--mainText);
     color: var(--textColor);
 }
+
 
 ::placeholder {
     color: var(--nonImportantText);
@@ -41,7 +42,7 @@ a, p{
 .btn1div {
     position: relative;
     text-align: center;
-    margin-top: 1.8em;
+    margin: 1.8em 0;
 }
 
 .btn1div>input[type="checkbox"] {
@@ -104,6 +105,8 @@ a, p{
 /* for checkbox tasks */
 .checkmark {
     margin-left: .93em;
+    background-size: 0%;
+    transition: background-size .8s ease;
 }
 
 .checkBoxLabel .checkmark {
@@ -112,8 +115,6 @@ a, p{
     height: 1.3em;
     border: .1em solid var(--textColor);
     display: block;
-    transition: background-size 0.5s ease;
-    background-size: 0%;
 }
 
 .checkBoxLabel>input {
@@ -121,13 +122,13 @@ a, p{
 }
 
 .checkBoxLabel>input+.checkmark {
-    background-size: 100%;
     background-color: var(--bgkColor);
 }
-
+/* complete task */
 .checkBoxLabel>input:checked+.--taskFormComplete {
+    background-size: 100%;
     background: black url(/images/white_checkMark_img.svg) center/140% no-repeat;
-    transition: background-size 0.5s ease cubic-bezier(0.25, 0.1, 1, 5.68);
+    transition: background-size .8s ease cubic-bezier(0.25, 0.1, 1, 5.68);
     background-color: var(--nonImportantText);
 }
 
@@ -299,6 +300,7 @@ form {
 }
 
 .input {
+    color-scheme: var(--colorSchema);
     border: none;
     margin-top: 1.25em;
     width: 21.8em;
@@ -320,6 +322,7 @@ form {
     align-self: center;
     color: white;
     border: none;
+    cursor: pointer;
 }
 
 /* loading display */
@@ -362,8 +365,7 @@ form {
         transform: rotate(360deg);
     }
 }
-
 footer {
-    margin: 1em 0;
+    margin-top: 15em;
     text-align: center;
 }

@@ -20,7 +20,7 @@
           <body>
             <div id="mainContainer">
               <div class="btn1div">
-                <input type="checkbox" id="themeToggle">
+                <input type="checkbox" id="themeToggle" name="btnToggle">
               </div>
               <div class="row1">
                 <img src="/images/logo.svg" alt="logo">

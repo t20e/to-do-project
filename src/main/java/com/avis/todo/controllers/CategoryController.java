@@ -28,6 +28,7 @@ public class CategoryController {
 	private ServiceUser servUser;
 
 	@PostMapping(value = "/category/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @RequestMapping(value = "/category/add", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity addCategory(@Valid @RequestBody Category category, BindingResult result,
 			HttpSession session) {
 		HashMap<String, Object> validations = new HashMap<>();
@@ -53,6 +54,8 @@ public class CategoryController {
 				// put("category", category);
 				put("category_name", category.getName());
 				put("category_id", category.getId());
+				put("purpose", "category");
+
 			}
 		};
 		List divideTasks = new ArrayList();

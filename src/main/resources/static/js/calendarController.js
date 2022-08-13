@@ -65,18 +65,21 @@ $(document).ready(function () {
         // console.log(days_of_month[month], 'days of month', first_day.getDay(), 'first day');
         for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
             let day = document.createElement("div");
-            day.className = "day_div";
+            day.className = `day_div --alertTaskNum${i - first_day.getDay() + 1}`;
             if (i >= first_day.getDay()) {
                 // console.log(i + ' i ', taskObj[i] +' due');
                 $(day)
                     .append(`<span>${i - first_day.getDay() + 1}</span> `)
-                    .append("<div class='alertTask'></div>");
-                // if (!$(day).find("div").hasClass("--hasTask")) {
+                    .append(`<div class='alertTask'></div>`);
                 // jquery if it has the --hastask then dont add another --hasTask
                 if (taskObj[i - first_day.getDay() + 1] == i - first_day.getDay() + 1) {
-                    $(day).find("div").addClass("--hasTask").append("•");
+                    $(day).find("div").append("•")
+                    $(day).find('span').mouseenter(function () {
+                        showTaskInfoOnCalendar(`${currentYear.value}`, `${currentMonth.value + 1}`, `${i - first_day.getDay() + 1}`)
+                    }).addClass("--hasTask")
+                    // TODO add a mouseOut to remove the div
+                    // closeTaskDivOnCal
                 }
-                // }
                 if (
                     i - first_day.getDay() + 1 === current_date.getDate() &&
                     year === current_date.getFullYear() &&
@@ -86,10 +89,6 @@ $(document).ready(function () {
                 }
             }
             calendar_days.append(day)
-            // TODO
-            // .mouseover(function(){
-            //     console.log('hi');
-            // })
         }
     };
     let current_date = new Date();
@@ -117,17 +116,26 @@ $(document).ready(function () {
     $("#next-year").click(function () {
         addTasksToCalendar(currentMonth.value + 1, currentYear.value += 1);
     });
+
+
     // generateCalender(currentMonth.value, currentYear.value)
     const addTasksToCalendar = (currentMonth, currentYear) => {
         // console.log(currentMonth, 'curr month to db');
         // console.log(currentMonth - 1, 'curr month in global var')
         // console.log(currentYear, 'current year to db');
+        currentMonth = currentMonth.toString()
+        currentYear = currentYear.toString()
+        if(currentMonth.length === 1){
+            currentMonth = '0' + currentMonth
+        }
+        console.log(typeof(currentMonth));
+        console.log(typeof(currentYear));
         $.ajax({
             type: "GET",
             url: `/api/task/forCalendar/${currentYear}${currentMonth}`,
             dataType: "json",
             success: function (response) {
-                // console.log("successful connection to server for", response);
+                console.log("successful connection to server for", response);
                 generateCalender(
                     Number(response.month - 1),
                     Number(response.year),

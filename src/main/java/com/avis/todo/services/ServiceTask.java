@@ -15,9 +15,9 @@ public class ServiceTask {
 	@Autowired
 	private RepoTask taskRepo;
 	
-	//	create taske
+	//	create task
 	public Task createTask(Task t) {
-		System.out.println(t.getDue());
+//		System.out.println(t.getDue());
 		return this.taskRepo.save(t);
 	}
 	//get all tasks
@@ -34,7 +34,10 @@ public class ServiceTask {
 	}
 	//get all tasks within year and month
 	public List<Task> getAllTasksInDate(String month, String year, Long userId){
-		return (List<Task>)this.taskRepo.findAllTaskWithinDate(month, year, userId);
+		return (List<Task>)this.taskRepo.findAllTaskWithinDate(year, month, userId);
+	}
+	public List<Task> getTaskForCal(String year, String month, String day, Long userId){
+		return (List<Task>)this.taskRepo.getTaskForCalendar(year, month, day, userId);
 	}
 	
 	
