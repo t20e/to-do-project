@@ -50,7 +50,7 @@ public class UserController {
 		return "register.jsp";
 	}
 	@PostMapping("/registering")
-	public String registeringUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, HttpSession session ) {
+	public String registeringUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, HttpSession session, Model view ) {
 		User user = this.servUser.register(newUser, result);
 		if(result.hasErrors()) {
 			return "register.jsp";

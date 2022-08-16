@@ -16,7 +16,7 @@
                 <head>
                   <meta charset="UTF-8">
                   <title>To Do App</title>
-                  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
                   <%-- <!-- <script>
                     window.jQuery || document.write('
                     <script src="{{url_for('static', filename='jquery.js') }}">\x3C / script > ')
@@ -99,6 +99,10 @@
                                     </c:if>
                                   </div>
                                 </c:forEach>
+                                <c:if test="${ user.tasks.size() == 0 }">
+                                  <p class="notaskParagraph">you don't have any tasks yet, create a category to get
+                                    started</p>
+                                </c:if>
                               </div>
                             </div>
                         </div>
@@ -155,24 +159,26 @@
                           <form id="categoryForm">
                             <!-- <input type="hidden" name="user" path="user" value="${user.id}"> -->
                             <div>
-                              <input type="text" class="input" name="name" path="name" placeHolder="name">
+                              <input type="text" class="input catName" name="name" path="name" placeHolder="name">
+                              <span class="inputErr --catName"></span>
                             </div>
                             <div id="radioHolder">
                               <div class="radioContainer">
-                                <input type="radio" class="dueRadio_input" path="priority" name="priority" value="1"
-                                  id="one">
+                                <input type="radio" class="dueRadio_input catRadio" path="priority" name="priority"
+                                  value="1" id="one">
                                 <label class="dueRadio_label" for="one">low</label>
 
-                                <input type="radio" class="dueRadio_input" path="priority" name="priority" value="2"
-                                  id="two">
+                                <input type="radio" class="dueRadio_input catRadio" path="priority" name="priority"
+                                  value="2" id="two">
                                 <label class="dueRadio_label" for="two">normal</label>
 
-                                <input type="radio" class="dueRadio_input" path="priority" name="priority" value="3"
-                                  id="three">
+                                <input type="radio" class="dueRadio_input catRadio" path="priority" name="priority"
+                                  value="3" id="three">
                                 <label class="dueRadio_label" for="three">High</label>
                               </div>
                             </div>
-                            <input id="btn" type="submit" value="Add" />
+                            <span class="inputErr --catRadio"></span>
+                            <input id="btn" class="btnCatForm" type="submit" value="Add" />
                           </form>
                           <button class="closePopUp" onclick="closePopups('#addCategoryPopup')">close</button>
                       </div>
@@ -183,31 +189,36 @@
                         <form id="taskForm">
                           <input type="hidden" id="category_id" name="category" path="category" value="">
                           <div>
-                            <input type="text" class="input" name="name" path="name" placeHolder="name">
+                            <input type="text" class="input taskName" name="name" path="name" placeHolder="name">
+                            <span class="inputErr --taskName"></span>
                           </div>
                           <div id="radioHolder">
                             <div class="radioContainer">
-                              <input type="radio" class="dueRadio_input" path="priority" name="priority" value="1"
+                              <input type="radio" class="dueRadio_input taskRadio" path="priority" name="priority" value="1"
                                 id="one_task">
                               <label class="dueRadio_label" for="one_task">low</label>
-                              <input type="radio" class="dueRadio_input" path="priority" name="priority" value="2"
+                              <input type="radio" class="dueRadio_input taskRadio" path="priority" name="priority" value="2"
                                 id="two_task">
                               <label class="dueRadio_label" for="two_task">normal</label>
-                              <input type="radio" class="dueRadio_input" path="priority" name="priority" value="3"
+                              <input type="radio" class="dueRadio_input taskRadio" path="priority" name="priority" value="3"
                                 id="three_task">
                               <label class="dueRadio_label" for="three_task">High</label>
                             </div>
                           </div>
+                          <span class="inputErr --taskRadio"></span>
                           <div>
-                            <input type="date" type="date" class="input" path="due" placeHolder="due" />
+                            <input type="date" type="date" class="input taskDue" path="due" placeHolder="due" />
+                            <span class="inputErr --taskDue"></span>
                           </div>
                           <div>
-                            <input type="text" class="input" path="location" placeHolder="location">
+                            <input type="text" class="input taskLocation" path="location" placeHolder="location">
+                            <span class="inputErr --taskLocation"></span>
                           </div>
                           <div>
-                            <input type="text" class="input" path="notes" placeHolder="notes">
+                            <input type="text" class="input taskNotes" path="notes" placeHolder="notes">
+                            <span class="inputErr --taskNotes"></span>
                           </div>
-                          <input id="btn" type="submit" value="Add" />
+                          <input id="btn" class="btnTaskForm" type="submit" value="Add" />
                         </form>
                         <button class="closePopUp" onclick="closePopups('#addTaskPopup')">close</button>
                       </div>

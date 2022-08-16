@@ -6,18 +6,18 @@ const showProgressLoader = (task) => {
   // stop user from creating more tasks if this is still loading
   $("#addCategoryPlusImg").addClass("disallow");
 };
-const tips = ['tip: ']['Hover over calendar day to show what tasks are due!','click the month to select a new month', 'add more tasks!', 'toggle theme checkbox']
+$('.loaderP').text('null')
+const tips = ['Hover over calendar day to show what tasks are due!','click the month to select a new month', 'add more tasks!', 'create more categories!', 'toggle theme checkbox']
 const showTips = () => {
-  console.log($('.loaderP').text());
+  // console.log($('.loaderP').text());
   setInterval(function () {
-    console.log('i');
     if($('.loaderP').text() == 'null'){
-      showProgressLoader(`${tips[0]} ${tips[1][Math.floor(Math.random() * tips.length)]}`)
+      showProgressLoader(`tips: ${tips[Math.floor(Math.random() * tips.length)]}`)
       setTimeout(function () {
         closeProgressLoader()
-      }, 2000)
+      }, 4000)
     }
-  }, 4000)
+  }, 25000)
 }
 
 showTips()
@@ -90,15 +90,19 @@ const addCatNameTolistUI = (category_name, category_id, category_priority) => {
     id: `${category_id}`,
     priority: `${category_priority}`,
   };
-  if (category_priority == 1) {
+  if(allCategoriesInOrder.length ==0){
     allCategoriesInOrder.push(newItem);
-  } else {
-    for (let i = 0; i < allCategoriesInOrder.length; i++) {
-      0;
-      if (allCategoriesInOrder[i].priority < category_priority) {
-        //check if thats the last item
-        allCategoriesInOrder.splice(i, 0, newItem);
-        break;
+  }else{
+    if (category_priority == 1) {
+      allCategoriesInOrder.push(newItem);
+    } else {
+      for (let i = 0; i < allCategoriesInOrder.length; i++) {
+        0;
+        if (allCategoriesInOrder[i].priority < category_priority) {
+          //check if thats the last item
+          allCategoriesInOrder.splice(i, 0, newItem);
+          break;
+        }
       }
     }
   }

@@ -11,7 +11,7 @@
     --nonImportantText: #727F83;
     --textColor: black;
     --boxShadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    --boxShadowPopUp: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    --boxShadowPopUp: 0 0 5px rgb(0, 0, 0, .2);
     --colorSchema: light;
     --borderBoxShadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -307,7 +307,7 @@ form {
     height: 3.1em;
     padding-left: .9em;
     background: transparent;
-    border-bottom: .12em solid var(--textColor);
+    border-bottom: .05em solid var(--textColor);
     outline: none;
     color: var(--textColor);
 }
@@ -357,7 +357,7 @@ form {
 
 .loaderP {
     white-space: nowrap;
-    color: black;
+    color: var(--textColor);
 }
 
 @keyframes spin {

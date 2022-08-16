@@ -5,9 +5,9 @@
     margin: 0 auto;
     width: 34.3rem;
     height: auto;
-    border: .15em solid var(--secondaryColor);
-    border-bottom-right-radius: 3.1rem;
-    border-bottom-left-radius: 3.1rem;
+    border: .01em solid var(--secondaryColor);
+    border-bottom-right-radius: 1.25em;
+    border-bottom-left-radius: 1.25em;
     margin-top: -.25em;
     background-color: var(--bgkColor);
 }
@@ -39,6 +39,11 @@ img {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+}
+.errors{
+    color: red;
+    text-align: center;
+    margin-top: 2em;
 }
 
 a {

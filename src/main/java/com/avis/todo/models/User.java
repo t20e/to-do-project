@@ -17,9 +17,12 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,17 +30,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="users")
 public class User {
+
+	@Transient
+	String lettersRegex="[a-zA-Z]+";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@NotEmpty(message = "please enter a name")
+	@Size(min=2, max=35, message = "na")
 	private String firstName;
 	
 	@NotEmpty(message = "please enter a name")
+	@Size(min=2, max=35)
 	private String lastName;
 	
-	@Min(value = 4, message = "please enter your age")
+	@NotNull(message = "pleaser enter your age")
+	@Min(value = 13, message = "you must be older than 13")
 	private int age;
 	
 	@NotBlank(message = "email is required")
@@ -45,6 +55,7 @@ public class User {
 	private String email;
 	
 	@NotBlank(message = "password required")
+	@Size(min = 6, message = "password must be more than 6 characters")
 	private String password;
 	
 	@Transient
@@ -183,6 +194,7 @@ public class User {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
 	
 	
 }

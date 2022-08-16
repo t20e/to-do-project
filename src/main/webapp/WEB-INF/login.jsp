@@ -9,6 +9,7 @@
         <%@ page isErrorPage="true" %>
           <!DOCTYPE html>
           <html>
+
           <head>
             <meta charset="UTF-8">
             <title>Login</title>
@@ -16,6 +17,7 @@
             <link rel="stylesheet" href="<c:url value=" /css/login_page.css" /> ">
             <script type="text/javascript" defer src="<c:url value='/js/themeController.js' />"></script>
           </head>
+
           <body>
             <div id="mainContainer">
               <div class="btn1div">
@@ -28,13 +30,13 @@
                 <!-- form  -->
                 <form:form action="/logging" method="post" modelAttribute="loginUser">
                   <div>
-                    <form:errors path="email" />
                     <form:input class="input" autofocus="autofocus" path="email" placeHolder="email" />
                   </div>
                   <div>
-                    <form:errors path="password" />
                     <form:input type="password" class="input" path="password" placeHolder="password" />
                   </div>
+                  <form:errors class="errors" path="email" />
+                  <form:errors class="errors" path="password" />
                   <input id="btn" type="submit" value="Login" />
                 </form:form>
               </div>

@@ -5,6 +5,7 @@
     /* change height to auto */
     border-radius: 1.25em;
     box-shadow: var(--boxShadow);
+    background-color: var(--bgkColor);
 }
 
 .calendar {
@@ -15,11 +16,11 @@
     /* overflow: hidden; */
     display: flex;
     flex-direction: column;
+
 }
 
 .showTaskPerCalDay{
     /* z-index: 1000; */
-    background-color: var(--bgkColor);
     height: auto;
     width: 20em;
     position: absolute;

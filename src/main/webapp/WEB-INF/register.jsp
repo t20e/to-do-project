@@ -10,6 +10,7 @@
         <%@ page isErrorPage="true" %>
           <!DOCTYPE html>
           <html>
+
           <head>
             <meta charset="UTF-8">
             <title>Register</title>
@@ -17,6 +18,7 @@
             <link rel="stylesheet" href="<c:url value=" /css/register_page.css" /> ">
             <script type="text/javascript" defer src="<c:url value='/js/themeController.js' />"></script>
           </head>
+
           <body>
             <div id="mainContainer">
               <div class="btn1div">
@@ -29,30 +31,30 @@
                 <!-- form  -->
                 <form:form action="/registering" method="post" modelAttribute="newUser">
                   <div>
-                    <form:errors path="lastName" />
                     <form:input class="input" autofocus="autofocus" path="firstName" placeHolder="first Name" />
                   </div>
+                  <form:errors class="errors" path="firstName" />
                   <div>
-                    <form:errors path="lastName" />
                     <form:input class="input" path="lastName" placeHolder="last Name" />
                   </div>
+                  <form:errors class="errors" path="lastName" />
                   <div class="ageContainer">
                     <form:label class="ageLabel" path="age">age</form:label>
-                    <form:errors path="age" />
                     <form:input class="inputAge" type="number" path="age" />
                   </div>
+                  <form:errors class="errors" path="age" />
                   <div>
-                    <form:errors path="email" />
                     <form:input class="input" path="email" placeHolder="email" />
                   </div>
+                  <form:errors class="errors" path="email" />
                   <div>
-                    <form:errors path="password" />
                     <form:input type="password" class="input" path="password" placeHolder="password" />
                   </div>
+                  <form:errors class="errors" path="password" />
                   <div>
-                    <form:errors path="confirmPassword" />
                     <form:input type="password" class="input" path="confirmPassword" placeHolder="confirm password" />
                   </div>
+                  <form:errors class="errors" path="confirmPassword" />
                   <input id="btn" type="submit" value="Sign Up" />
                 </form:form>
 

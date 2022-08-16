@@ -128,8 +128,8 @@ $(document).ready(function () {
         if(currentMonth.length === 1){
             currentMonth = '0' + currentMonth
         }
-        console.log(typeof(currentMonth));
-        console.log(typeof(currentYear));
+        // console.log(typeof(currentMonth));
+        // console.log(typeof(currentYear));
         $.ajax({
             type: "GET",
             url: `/api/task/forCalendar/${currentYear}${currentMonth}`,
