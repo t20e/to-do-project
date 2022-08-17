@@ -15,22 +15,20 @@
 
                 <head>
                   <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
                   <title>To Do App</title>
                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-                  <%-- <!-- <script>
-                    window.jQuery || document.write('
-                    <script src="{{url_for('static', filename='jquery.js') }}">\x3C / script > ')
-                      $SCRIPT_ROOT = {{ request.script_root | tojson }};
-                    </script> --> --%>
                     <link rel="stylesheet" href="<c:url value=" /css/formPopupStyle.css" /> ">
                     <link rel="stylesheet" href="<c:url value=" /css/calendar.css" /> ">
                     <link rel="stylesheet" href="<c:url value=" /css/home_page.css" /> ">
+                    <script type="text/javascript" defer src="<c:url value='/js/mobileViewController.js' />"></script>
                     <script type="text/javascript" defer src="<c:url value='/js/themeController.js' />"></script>
-                    <script type="text/javascript" defer src="<c:url value='/js//formSubmissionHandler.js' />"></script>
-                    <%-- IMPORTANT ANY SORT OF JQUERY THAT SUMBITS NEEDS TO LOAD AFTER THE PAGE SO IT CAN BIND!! --%>
+                    <script type="text/javascript" defer src="<c:url value='/js/formSubmissionHandler.js' />"></script>
+                    <script type="text/javascript" defer src="<c:url value='/js/miscellaneous.js' />"></script>
+                    <%-- IMPORTANT ANY SORT OF JQUERY THAT SUBMITS NEEDS TO LOAD AFTER THE PAGE SO IT CAN BIND!! --%>
+                    <script type="text/javascript" defer src="<c:url value='/js/retrieveData.js' />"></script>
                       <script type="text/javascript" defer src="<c:url value='/js/calendarController.js' />"></script>
                       <script type="text/javascript" defer src="<c:url value='/js/popUpController.js' />"></script>
-                      <script type="text/javascript" defer src="<c:url value='/js/retrieveData.js' />"></script>
                       <script type="text/javascript" defer src="<c:url value='/js/validateForms.js' />"></script>
                 </head>
 
@@ -64,11 +62,12 @@
                               </div>
                               <div class="month-list"></div>
                               <div class="showTaskPerCalDay">
-                                <h4>October 4</h4>
                               </div>
                             </div>
                           </div>
                         </div>
+
+
                         <div class="row2">
                           <%-- <!-- selected category --> --%>
                             <div class="selectedCategoryContainer">
@@ -76,7 +75,8 @@
                                 <H2 class="shownTaskHeader">All Tasks</H2>
                               </div>
                               <div class="imgPlusDiv">
-                                <img src="/images/plus_sign.svg" id="addTaskPlusImg" alt="plus sign">
+                                <img src="https://portfolio-avis-s3.s3.amazonaws.com/app/icons/plus_sign.svg"
+                                  id="addTaskPlusImg" alt="plus sign">
                               </div>
                               <div class="tasksList">
                                 <c:forEach items='${ user.tasks }' var='task'>
@@ -112,7 +112,7 @@
                           <%-- <!-- shows user info and all categories in order by priority {always show all task as
                             main}--> --%>
                             <div class="rowDashNav">
-                              <img src="/images/logo.svg" alt="">
+                              <img src="https://portfolio-avis-s3.s3.amazonaws.com/app/icons/logo.svg" alt="">
                               <h3> hey, ${ user.firstName } </h3>
                               <div class="userActions">
                                 <a href="/logout">logout</a>
@@ -140,12 +140,14 @@
                                 </c:forEach>
                             </div>
                             <div class="addCategoryPlusImgDiv">
-                              <img src="/images/plus_sign.svg" id="addCategoryPlusImg" alt="plus sign">
+                              <img src="https://portfolio-avis-s3.s3.amazonaws.com/app/icons/plus_sign.svg"
+                                id="addCategoryPlusImg" alt="plus sign">
                               <%-- <!-- if category contains more then 15 categories then display a pull down that will
                                 show all categories--> --%>
                             </div>
                         </div>
                       </div>
+
                     </div>
                     <footer>
                       <p> &copy to-do-app </p>
@@ -187,35 +189,35 @@
                       <div class="taskPopUp popUpContent">
                         <h2>Add task</h2>
                         <form id="taskForm">
-                          <input type="hidden" id="category_id" name="category" path="category" value="">
+                          <input type="hidden" id="category_id" name="category" value="">
                           <div>
-                            <input type="text" class="input taskName" name="name" path="name" placeHolder="name">
+                            <input type="text" class="input taskName" name="name" placeHolder="name">
                             <span class="inputErr --taskName"></span>
                           </div>
                           <div id="radioHolder">
                             <div class="radioContainer">
-                              <input type="radio" class="dueRadio_input taskRadio" path="priority" name="priority" value="1"
+                              <input type="radio" class="dueRadio_input taskRadio" name="priority" value="1"
                                 id="one_task">
                               <label class="dueRadio_label" for="one_task">low</label>
-                              <input type="radio" class="dueRadio_input taskRadio" path="priority" name="priority" value="2"
+                              <input type="radio" class="dueRadio_input taskRadio" name="priority" value="2"
                                 id="two_task">
                               <label class="dueRadio_label" for="two_task">normal</label>
-                              <input type="radio" class="dueRadio_input taskRadio" path="priority" name="priority" value="3"
+                              <input type="radio" class="dueRadio_input taskRadio" name="priority" value="3"
                                 id="three_task">
                               <label class="dueRadio_label" for="three_task">High</label>
                             </div>
                           </div>
                           <span class="inputErr --taskRadio"></span>
                           <div>
-                            <input type="date" type="date" class="input taskDue" path="due" placeHolder="due" />
+                            <input type="date" type="date" class="input taskDue" name="due" placeHolder="due" />
                             <span class="inputErr --taskDue"></span>
                           </div>
                           <div>
-                            <input type="text" class="input taskLocation" path="location" placeHolder="location">
+                            <input type="text" class="input taskLocation" name="location" placeHolder="location">
                             <span class="inputErr --taskLocation"></span>
                           </div>
                           <div>
-                            <input type="text" class="input taskNotes" path="notes" placeHolder="notes">
+                            <input type="text" class="input taskNotes" name="notes" placeHolder="notes">
                             <span class="inputErr --taskNotes"></span>
                           </div>
                           <input id="btn" class="btnTaskForm" type="submit" value="Add" />

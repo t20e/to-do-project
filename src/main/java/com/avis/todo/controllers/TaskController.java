@@ -123,6 +123,7 @@ public class TaskController {
 				put("year", year);
 				put("tasks", divideTasks);
 				put("month", month);
+				put("purpose", "get_tasks_for_calendar");
 			}
 		};
 		return allTasksHashMap;

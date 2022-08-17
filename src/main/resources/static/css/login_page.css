@@ -61,3 +61,18 @@ footer {
     justify-content: center;
     align-items: flex-end;
 }
+
+
+@media (max-width: 780px) {
+
+    #mainContainer {
+        margin: 0 auto;
+        width: 80%;
+        height: auto;
+        border: .01em solid var(--secondaryColor);
+        border-bottom-right-radius: 1.25em;
+        border-bottom-left-radius: 1.25em;
+        margin-top: -.25em;
+        background-color: var(--bgkColor);
+    }
+}

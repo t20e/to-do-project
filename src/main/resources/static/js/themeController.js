@@ -43,7 +43,7 @@ const darkThemeColors = () => {
     root.setProperty("--nonImportantText", "#727F83")
     root.setProperty("--textColor", "white")
     root.setProperty("--boxShadow", "none")
-    root.setProperty("--boxShadowPopUp", "rgba(255, 255, 255, 0.7) 0px 48px 100px 0px")
+    root.setProperty("--boxShadowPopUp", "rgba(0, 0, 0, 0.7) 0px 48px 100px 0px")
     root.setProperty("--borderBoxShadow", "")
     root.setProperty("--colorSchema", "dark")
 }
@@ -74,7 +74,7 @@ window.onload = ()=>{
 }
 $('#themeToggle').click(function () {
     lightThemeOn = !lightThemeOn
-    console.log(lightThemeOn, 'after');
+    // console.log(lightThemeOn, 'after');
     localStorageVar.setItem("lightThemeOn", lightThemeOn)
     changeTheme()
 })

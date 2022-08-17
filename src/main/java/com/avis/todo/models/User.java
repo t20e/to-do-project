@@ -39,11 +39,11 @@ public class User {
 	private long id;
 
 	@NotEmpty(message = "please enter a name")
-	@Size(min=2, max=35, message = "na")
+	@Size(min=2, max=35, message = "name needs to be more than 2 characters")
 	private String firstName;
 	
 	@NotEmpty(message = "please enter a name")
-	@Size(min=2, max=35)
+	@Size(min=2, max=35, message = "name needs to be more than 2 characters")
 	private String lastName;
 	
 	@NotNull(message = "pleaser enter your age")

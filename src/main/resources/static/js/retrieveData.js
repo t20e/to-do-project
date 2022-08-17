@@ -23,10 +23,15 @@ const addTaskDivOnCal = (data) => {
   if (day[0] === '0') {
     day = day[1]
   }
+  // console.log(day);
   showTaskOnMouseOverDay.addClass('--show')
   let priorityColor, priority;
+  let date = data.tasks[0].due
+  date = date.slice(5, 10)
+  // console.log(date);
+  date = `${months_names[Number(date.slice(0, 2)) - 1]} ${day}`
+  showTaskOnMouseOverDay.empty().append(`<h4>${date}</h4>`)
   data.tasks.forEach(i => {
-    console.log(i);
     switch (i.priority) {
       case 1:
         priority = 'low'
@@ -41,7 +46,7 @@ const addTaskDivOnCal = (data) => {
         priorityColor = 'priority3'
         break;
     }
-    showTaskOnMouseOverDay.empty().append(
+    showTaskOnMouseOverDay.append(
       `<div>
       task: ${i.name} 
       <p class=${priorityColor}> priority: ${priority}</p>
@@ -49,9 +54,10 @@ const addTaskDivOnCal = (data) => {
     ).find('p').addClass(priorityColor)
   });
 }
-showTaskOnMouseOverDay.mouseleave(function () {
-  showTaskOnMouseOverDay.removeClass('--show')
-});
+// TODO might not be needed
+// showTaskOnMouseOverDay.mouseleave(function () {
+//   showTaskOnMouseOverDay.removeClass('--show')
+// });
 
 const ajaxRetrieve = (url) => {
   $.ajax({
@@ -66,6 +72,13 @@ const ajaxRetrieve = (url) => {
           break;
         case "showTaskOnCalendar":
           addTaskDivOnCal(response)
+          break;
+        case "get_tasks_for_calendar":
+          generateCalender(
+            Number(response.month - 1),
+            Number(response.year),
+            response.tasks
+          );
           break;
       }
     },

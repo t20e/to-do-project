@@ -12,6 +12,7 @@
 
           <head>
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Login</title>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
             <link rel="stylesheet" href="<c:url value=" /css/login_page.css" /> ">
@@ -24,7 +25,7 @@
                 <input type="checkbox" id="themeToggle" name="btnToggle">
               </div>
               <div class="row1">
-                <img src="/images/logo.svg" alt="logo">
+                <img src="https://portfolio-avis-s3.s3.amazonaws.com/app/icons/logo.svg" alt="logo">
               </div>
               <div class="row2">
                 <!-- form  -->

@@ -1,45 +1,5 @@
 let currentCat = { img: null, div: null }
 
-const showProgressLoader = (task) => {
-  $(".loader").addClass("show");
-  $(".loaderP").text(task);
-  // stop user from creating more tasks if this is still loading
-  $("#addCategoryPlusImg").addClass("disallow");
-};
-$('.loaderP').text('null')
-const tips = ['Hover over calendar day to show what tasks are due!','click the month to select a new month', 'add more tasks!', 'create more categories!', 'toggle theme checkbox']
-const showTips = () => {
-  // console.log($('.loaderP').text());
-  setInterval(function () {
-    if($('.loaderP').text() == 'null'){
-      showProgressLoader(`tips: ${tips[Math.floor(Math.random() * tips.length)]}`)
-      setTimeout(function () {
-        closeProgressLoader()
-      }, 4000)
-    }
-  }, 25000)
-}
-
-showTips()
-
-const closeProgressLoader = () => {
-  $(".loader").animate({ left: "-200px" });
-  setTimeout(() => {
-    $(".loader").removeClass("show");
-    $(".loader").animate({ left: "0pc" });
-    $('.loaderP').text('null')
-  }, 500);
-  $("#addCategoryPlusImg").removeClass("disallow");
-};
-const moveTheCurrCatArrow = (id) => {
-  if (currentCat.img !== null) {
-    currentCat.img.remove()
-  }
-  currentCat.div = $('.--selectCatDiv' + id)
-  currentCat.div.prepend(`<img src="/images/dark_blue_arrow_right.svg" class="currentCatArrow --arrowImg${id}" alt="current selected category">`)
-  currentCat.img = $(".--arrowImg" + id)
-}
-
 const addSelectedCatAsShown = (data) => {
   //retrieve that data from db and see if it has any tasks
   document.title = `category • ${data.category_name}`;
@@ -58,7 +18,7 @@ const addSelectedCatAsShown = (data) => {
       );
   } else {
     $(".tasksList").empty();
-    data.allTaskPerCat.reverse().forEach((item) => {
+    data.allTaskPerCat.forEach((item) => {
       let taskHolder;
       if (item.complete == false) {
         taskHolder = `
@@ -90,9 +50,9 @@ const addCatNameTolistUI = (category_name, category_id, category_priority) => {
     id: `${category_id}`,
     priority: `${category_priority}`,
   };
-  if(allCategoriesInOrder.length ==0){
+  if (allCategoriesInOrder.length == 0) {
     allCategoriesInOrder.push(newItem);
-  }else{
+  } else {
     if (category_priority == 1) {
       allCategoriesInOrder.push(newItem);
     } else {
@@ -151,11 +111,15 @@ $("#taskForm").submit(function (e) {
   let form = this;
   $.each(this.elements, function (i, v) {
     let input = $(v);
-    formData[input.attr("name")] = input.val();
-    delete formData["undefined"];
+    if(input.attr("name") !== 'priority'){
+      formData[input.attr("name")] = input.val();
+      console.log(input.val());
+      delete formData["undefined"];
+    }
   });
+  formData['priority'] = $("input[name='priority']:checked").val()
   formData.category = { id: Number(formData.category) };
-  // console.log(formData);
+  console.log(formData);
   postData("/api/task/add", formData, form);
 });
 const toggleTaskCheckbox = (taskId) => {
@@ -197,11 +161,13 @@ const postData = (url, formData, form) => {
         switch (callback.purpose) {
           case "completeTask":
             toggleTaskCheckbox(callback.taskId);
+            addTasksToCalendar(currentMonth.value + 1, currentYear.value);
             break;
           case "task":
             closePopups("#addTaskPopup");
             $("#taskForm").trigger("reset");
             getTasksPerCat(callback.cat);
+            addTasksToCalendar(currentMonth.value + 1, currentYear.value);
             break;
           case "category":
             closePopups("#addCategoryPopup");

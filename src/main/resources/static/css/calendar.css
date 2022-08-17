@@ -16,11 +16,11 @@
     /* overflow: hidden; */
     display: flex;
     flex-direction: column;
-
 }
 
-.showTaskPerCalDay{
-    /* z-index: 1000; */
+.showTaskPerCalDay {
+    z-index: 1000;
+    background-color: var(--bgkColor);
     height: auto;
     width: 20em;
     position: absolute;
@@ -32,34 +32,42 @@
     border: .09em solid var(--textColor);
     border-top: 0;
 }
-.showTaskPerCalDay.--show{
-    display:flex;
+
+.showTaskPerCalDay.--show {
+    display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--textColor);
     /* filter: invert(100%); */
 }
-.showTaskPerCalDay > h4{
-    font-size: 1.5em;
+
+.showTaskPerCalDay>h4 {
+    font-size: 1em;
     text-decoration: underline;
     margin-bottom: .5em;
 }
-.showTaskPerCalDay > div{
+
+.showTaskPerCalDay>div {
     margin: .2em 0;
     display: flex;
     width: 90%;
     height: auto;
     justify-content: space-between;
 }
-.priority1{
+
+
+.priority1 {
     color: yellow;
 }
-.priority2{
+
+.priority2 {
     color: blue;
 }
-.priority3{
+
+.priority3 {
     color: red;
 }
+
 .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -178,31 +186,7 @@
     color: yellow;
     margin-top: -.2em;
 }
-/* TODO might noe be needed if the other method works */
-/* .displayTaskOnCal {
-    color: var(--textColor);
-    position: absolute;
-    z-index: 1000;
-    background-color: deepskyblue;
-    border-radius: .5em;
-    min-height: 10em;
-    min-width: 10em;
-    /* min-height works but not ideal because i cant set auto */
-    /* padding: 1em;
-    width: auto;
-    height: auto;
-} */
 
-/* .arrow {
-    position: relative;
-    left: 90%;
-    width: 0;
-    height: 0;
-    border: 0 solid transparent;
-    border-bottom-width: 1em;
-    border-top-width: 1em;
-    border-left: 1.5em solid black;
-}  */
 
 .month-list {
     position: absolute;
@@ -246,4 +230,14 @@
     background-color: deepskyblue;
     color: white;
     border-radius: 1.2em;
+}
+
+
+@media (max-width: 780px) {
+    .calenderContainer {
+        width: 100%;
+    }
+    .year-picker>span {
+        font-size: 1rem;
+    }
 }

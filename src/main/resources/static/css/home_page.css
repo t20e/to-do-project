@@ -32,7 +32,9 @@ h2 {
     padding: 0;
     box-sizing: border-box;
 }
-a, p{
+
+a,
+p {
     color: var(--secondaryColor);
     text-decoration: none;
 }
@@ -102,56 +104,12 @@ a, p{
     margin: 0 .6em;
 }
 
-/* for checkbox tasks */
-.checkmark {
-    margin-left: .93em;
-    background-size: 0%;
-    transition: background-size .8s ease;
-}
-
-.checkBoxLabel .checkmark {
-    border-radius: .62em;
-    width: 1.3em;
-    height: 1.3em;
-    border: .1em solid var(--textColor);
-    display: block;
-}
-
-.checkBoxLabel>input {
-    display: none;
-}
-
-.checkBoxLabel>input+.checkmark {
-    background-color: var(--bgkColor);
-}
-/* complete task */
-.checkBoxLabel>input:checked+.--taskFormComplete {
-    background-size: 100%;
-    background: black url(/images/white_checkMark_img.svg) center/140% no-repeat;
-    transition: background-size .8s ease cubic-bezier(0.25, 0.1, 1, 5.68);
-    background-color: var(--nonImportantText);
-}
-
-.taskParagraph {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-left: .62em;
-}
-
-.--taskComplete {
-    text-decoration: line-through;
-    color: var(--nonImportantText);
-}
-
 /* ****** end */
 
 #mainContainer {
-    margin: 0 auto;
+    margin: 0px auto;
     width: 60rem;
     height: auto;
-    border-bottom-right-radius: 3.1em;
-    border-bottom-left-radius: 3.1em;
     opacity: 1;
 }
 
@@ -163,9 +121,7 @@ a, p{
 
 .columnLeft {
     height: auto;
-    /* change height to auto */
     width: 60%;
-    display: inline-block;
 }
 
 .row1 {
@@ -184,6 +140,7 @@ a, p{
     flex-direction: row;
     justify-content: center;
 }
+
 .selectedCategoryContainer {
     width: 95%;
     height: auto;
@@ -222,12 +179,58 @@ a, p{
     align-items: center;
 }
 
+
+/* for checkbox tasks */
+.checkmark {
+    margin-left: .93em;
+    background-size: 0%;
+    transition: background-size .8s ease;
+}
+
+.checkBoxLabel .checkmark {
+    border-radius: .62em;
+    width: 1.3em;
+    height: 1.3em;
+    border: .1em solid var(--textColor);
+    display: block;
+}
+
+.checkBoxLabel>input {
+    display: none;
+}
+
+.checkBoxLabel>input+.checkmark {
+    background-color: var(--bgkColor);
+}
+
+/* complete task */
+.checkBoxLabel>input:checked+.--taskFormComplete {
+    background-size: 100%;
+    background: black url('https://portfolio-avis-s3.s3.amazonaws.com/app/icons/white_checkMark_img.svg') center/140% no-repeat;
+    transition: background-size .8s ease cubic-bezier(0.25, 0.1, 1, 5.68);
+    background-color: var(--nonImportantText);
+}
+
+.taskParagraph {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: .62em;
+}
+
+.--taskComplete {
+    text-decoration: line-through;
+    color: var(--nonImportantText);
+}
+
+
 /* end row 2 */
 .columnRight {
     height: auto;
     width: 40%;
     display: inline-block;
 }
+
 .dashboard {
     box-shadow: var(--boxShadow);
     width: 95%;
@@ -365,7 +368,58 @@ form {
         transform: rotate(360deg);
     }
 }
+
 footer {
     margin-top: 15em;
     text-align: center;
+}
+
+@media (max-width: 780px) {
+    #mainContainer {
+        width: 96%;
+    }
+
+    .columnContainer {
+        margin-top: .9em;
+        justify-content: space-between;
+    }
+
+    .columnLeft {
+        width: 55%;
+    }
+
+    .columnRight {
+        width: 45%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .row2 {
+        margin-top: 0;
+    }
+
+    .shownTaskHeader {
+        font-size: 1rem;
+    }
+
+    .retrieveDataBtn {
+        margin-top: 1.1rem;
+    }
+
+    .rowRepeat>p {
+        font-size: 1.2rem;
+    }
+
+    .notaskParagraph {
+        text-align: center;
+    }
+
+    .selectedCategoryContainer {
+        width: 100%;
+    }
+
+    .userActions>a {
+        font-size: 1rem;
+    }
+
 }
