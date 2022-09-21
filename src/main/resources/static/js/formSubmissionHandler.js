@@ -90,7 +90,7 @@ const completeTask = (task_id) => {
   // console.log(typeof(Number(task_id)));
   let formData = { taskId: Number(task_id) };
   let form = {};
-  postData("/api/task/complete", formData, form);
+  postData("/todo/api/task/complete", formData, form);
 };
 $("#categoryForm").submit(function (e) {
   e.preventDefault();
@@ -101,7 +101,7 @@ $("#categoryForm").submit(function (e) {
   };
   let form = this;
   console.log(formData);
-  postData("/api/category/add", formData, form);
+  postData("/todo/api/category/add", formData, form);
 });
 // FIXME for some reason its not allowinf me to create more tasks
 $("#taskForm").submit(function (e) {
@@ -120,7 +120,7 @@ $("#taskForm").submit(function (e) {
   formData['priority'] = $("input[name='priority']:checked").val()
   formData.category = { id: Number(formData.category) };
   console.log(formData);
-  postData("/api/task/add", formData, form);
+  postData("/todo/api/task/add", formData, form);
 });
 const toggleTaskCheckbox = (taskId) => {
   let input = $("input[name=" + taskId + "input]");

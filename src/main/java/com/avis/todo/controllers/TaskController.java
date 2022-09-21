@@ -27,7 +27,7 @@ import com.avis.todo.services.ServiceTask;
 import com.avis.todo.services.ServiceUser;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/todo/api")
 @CrossOrigin
 public class TaskController {
 	@Autowired

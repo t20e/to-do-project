@@ -22,20 +22,15 @@ public class MainController {
 	@Autowired
 	private ServiceCategory categoryService;
 	
-	@GetMapping("/")
+	@GetMapping("/todo")
 	public String home(Model view, HttpSession session ) {
 		Long idInSession = (Long) session.getAttribute("loggedInUserId");
 		if( idInSession == null ) {
-			return "redirect:/login";
+			return "redirect:/todo/login";
 		}
 		view.addAttribute("user", this.userService.getOneUser(idInSession));
 //		view.addAttribute("categoryForm", new Category());
 //		view.addAttribute("taskForm", new Task());
 		return "home.jsp";
 	}
-	
-	
-	
-	
-	
 }

@@ -1,8 +1,8 @@
 const getTasksPerCat = (categoryId) => {
-  ajaxRetrieve(`/api/category/${categoryId}`);
+  ajaxRetrieve(`/todo/api/category/${categoryId}`);
 };
 const getAllTasks = () => {
-  ajaxRetrieve("/api/task/getAll");
+  ajaxRetrieve("/todo/api/task/getAll");
 };
 const showTaskInfoOnCalendar = (year, month, day) => {
   // console.log(typeof (day));
@@ -13,7 +13,7 @@ const showTaskInfoOnCalendar = (year, month, day) => {
     month = '0' + month
   }
   date = `${year}${month}${day}`
-  ajaxRetrieve(`/api/task/forCalendarToShow/${date}`)
+  ajaxRetrieve(`/todo/api/task/forCalendarToShow/${date}`)
 }
 const showTaskOnMouseOverDay = $('.showTaskPerCalDay')
 

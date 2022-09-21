@@ -23,40 +23,40 @@ public class UserController {
 	@Autowired
 	private ServiceUser servUser;
 
-	@RequestMapping("/logout")
+	@RequestMapping("/todo/logout")
 	public String logout(HttpSession session){
 		session.invalidate();
-		return "redirect:/reg";
+		return "redirect:/todo/reg";
 	}
-	@GetMapping("/login")
+	@GetMapping("/todo/login")
 	public String login(Model view) {
 		view.addAttribute("loginUser", new LoginUser());
 		return "login.jsp";
 	}
-	@PostMapping("/logging")
+	@PostMapping("/todo/logging")
 	public String logging(@Valid @ModelAttribute("loginUser")LoginUser loginUser, BindingResult result, HttpSession session ) {
 		User user = this.servUser.login(loginUser, result);
 		if(result.hasErrors()) {
 			return "login.jsp";
 		}
 		session.setAttribute("loggedInUserId", user.getId());
-		return "redirect:/";
+		return "redirect:/todo";
 	}
 	
 	//register
-	@GetMapping("/reg")
+	@GetMapping("/todo/reg")
 	public String register(Model view) {
 		view.addAttribute("newUser", new User());
 		return "register.jsp";
 	}
-	@PostMapping("/registering")
+	@PostMapping("/todo/registering")
 	public String registeringUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, HttpSession session, Model view ) {
 		User user = this.servUser.register(newUser, result);
 		if(result.hasErrors()) {
 			return "register.jsp";
 		}
 		session.setAttribute("loggedInUserId", user.getId());
-		return "redirect:/";
+		return "redirect:/todo";
 		
 	}
 }

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/todo/api")
 public class CategoryController {
 	@Autowired
 	private ServiceCategory categoryService;

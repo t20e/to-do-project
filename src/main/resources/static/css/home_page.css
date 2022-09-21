@@ -373,7 +373,20 @@ footer {
     margin-top: 15em;
     text-align: center;
 }
-
+#linkImg {
+    position: absolute;
+    top: 4.2vh;
+    left: 82vw;
+    cursor: pointer;
+    background-color: white;
+    height: 2.3rem;
+    width: 2.3rem;
+    padding: 5px;
+    border-radius: 50px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+  
 @media (max-width: 780px) {
     #mainContainer {
         width: 96%;
@@ -421,5 +434,5 @@ footer {
     .userActions>a {
         font-size: 1rem;
     }
-
+ 
 }

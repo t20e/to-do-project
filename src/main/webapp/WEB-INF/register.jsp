@@ -30,7 +30,7 @@
               </div>
               <div class="row2">
                 <!-- form  -->
-                <form:form action="/registering" method="post" modelAttribute="newUser">
+                <form:form action="/todo/registering" method="post" modelAttribute="newUser">
                   <div>
                     <form:input class="input" autofocus="autofocus" path="firstName" placeHolder="first Name" />
                   </div>
@@ -63,7 +63,7 @@
               </div>
               <div class="row3">
                 <!-- link to register  -->
-                <a href="/login">login</a>
+                <a href="/todo/login">login</a>
               </div>
             </div>
             <footer>

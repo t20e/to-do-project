@@ -115,7 +115,7 @@
                               <img src="https://portfolio-avis-s3.s3.amazonaws.com/app/icons/logo.svg" alt="">
                               <h3> hey, ${ user.firstName } </h3>
                               <div class="userActions">
-                                <a href="/logout">logout</a>
+                                <a href="/todo/logout">logout</a>
                               </div>
                             </div>
                             <div class="rowRepeatContainer">
@@ -230,6 +230,11 @@
                         <div></div>
                         <p class="loaderP"></p>
                       </div>
+                      <a
+                      href="https://github.com/t20e/to-do-project">
+                      <img id="linkImg" src="https://portfolio-avis-s3.s3.amazonaws.com/app/icons/gitCodeLink_img-01.png"
+                          alt="link img">
+                  </a>
                 </body>
 
                 </html>
