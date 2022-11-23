@@ -22,11 +22,11 @@ public class MainController {
 	@Autowired
 	private ServiceCategory categoryService;
 	
-	@GetMapping("/todo")
+	@GetMapping("/")
 	public String home(Model view, HttpSession session ) {
 		Long idInSession = (Long) session.getAttribute("loggedInUserId");
 		if( idInSession == null ) {
-			return "redirect:/todo/login";
+			return "redirect:/login";
 		}
 		view.addAttribute("user", this.userService.getOneUser(idInSession));
 //		view.addAttribute("categoryForm", new Category());

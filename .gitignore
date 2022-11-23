@@ -34,8 +34,10 @@ build/
 ### VS Code ###
 .vscode/
 
-.DS_Store
 jsconfig.json
-# src/main/resources/application.properties
 src/main/resources/static/images
+
 env.properties
+.env
+.DS_Store
+src/main/resources/application.properties

@@ -130,6 +130,6 @@ const addTasksToCalendar = (currentMonth, currentYear) => {
     }
     // console.log(typeof(currentMonth));
     // console.log(typeof(currentYear));
-    ajaxRetrieve(`/todo/api/task/forCalendar/${currentYear}${currentMonth}`)
+    ajaxRetrieve(`/api/task/forCalendar/${currentYear}${currentMonth}`)
 };
 addTasksToCalendar(currentMonth.value + 1, currentYear.value);

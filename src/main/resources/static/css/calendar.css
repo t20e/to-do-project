@@ -57,7 +57,7 @@
 
 
 .priority1 {
-    color: yellow;
+    color: #FFCB77;
 }
 
 .priority2 {
@@ -65,7 +65,7 @@
 }
 
 .priority3 {
-    color: red;
+    color: #FE6D73;
 }
 
 .calendar-header {
@@ -183,7 +183,7 @@
 }
 
 .alertTask {
-    color: yellow;
+    color: #227C9D;
     margin-top: -.2em;
 }
 
